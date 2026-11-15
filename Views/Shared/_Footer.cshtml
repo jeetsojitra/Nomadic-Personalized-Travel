@@ -1,0 +1,46 @@
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 mb-4 mb-lg-0">
+                <div class="footer-logo">
+                    <i class="bi bi-tree-fill"></i>
+                    Nomadic
+                </div>
+                <p>
+                    Your personalized travel companion. Explore more. Experience more. Handcrafted travel experiences around the world.
+                </p>
+            </div>
+
+            <div class="col-lg-2 col-6 mb-4 mb-lg-0">
+                <h5>Explore</h5>
+                <a asp-controller="Destinations" asp-action="Index">Destinations</a>
+                <a asp-controller="Packages" asp-action="Index">Packages</a>
+                <a href="/#about">About Us</a>
+            </div>
+
+            <div class="col-lg-2 col-6 mb-4 mb-lg-0">
+                <h5>Support</h5>
+                <a asp-controller="Search" asp-action="Index">Search</a>
+                <a asp-controller="Account" asp-action="Login">Login</a>
+                <a asp-controller="Account" asp-action="Register">Sign Up</a>
+            </div>
+
+            <div class="col-lg-4">
+                <h5>Follow Us</h5>
+                <p class="mb-3">Stay connected.</p>
+                </div>
+            </div>
+
+        <hr />
+
+        <div class="footer-bottom">
+            <p>
+                &copy; @DateTime.Now.Year Nomadic Travel Inc. All rights reserved.
+            </p>
+            <div>
+                <a asp-controller="Home" asp-action="Privacy">Privacy Policy</a>
+                <a asp-controller="Home" asp-action="Terms">Terms & Conditions</a>
+            </div>
+        </div>
+    </div>
+</footer>

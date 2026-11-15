@@ -1,0 +1,333 @@
+@{
+    ViewData["Title"] = "Welcome to Nomadic";
+    ViewData["HideNavFooter"] = true;
+}
+
+<div class="auth-page">
+
+    
+    <section class="auth-visual">
+
+        <div class="auth-overlay"></div>
+
+        <div class="auth-visual-content">
+
+            <a asp-controller="Home"
+               asp-action="Index"
+               class="auth-logo">
+                <span class="auth-logo-icon">
+                    <i class="bi bi-compass"></i>
+                </span>
+
+                <span>
+                    <strong>Nomadic</strong>
+                    <small> Make your world without boundaries </small>
+                </span>
+            </a>
+
+            <div class="journey-content">
+
+                <span class="journey-label">
+                    <i class="bi bi-geo-alt-fill"></i>
+                    YOUR NEXT JOURNEY STARTS HERE
+                </span>
+
+                <h1>
+                    Go somewhere
+                    <span>you've never been.</span>
+                </h1>
+
+                <p>
+                    Discover beautiful destinations, plan unforgettable
+                    journeys and collect memories along the way.
+                </p>
+
+                <div class="journey-stats">
+
+                    <div>
+                        <strong>40+</strong>
+                        <span>Destinations</span>
+                    </div>
+
+                    <div>
+                        <strong>15+</strong>
+                        <span>Travel Packages</span>
+                    </div>
+
+                    <div>
+                        <strong>4.9</strong>
+                        <span>Traveller Rating</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="travel-note">
+                <i class="bi bi-arrow-up-right"></i>
+                <span>Collect moments,<br />not things.</span>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    
+    <section class="auth-form-section">
+
+        <div class="auth-form-wrapper">
+
+            <div class="mobile-auth-logo">
+
+                <div class="auth-logo-icon">
+                    <i class="bi bi-compass"></i>
+                </div>
+
+                <div>
+                    <strong>Nomadic</strong>
+                    <small>TRAVEL & DISCOVER</small>
+                </div>
+
+            </div>
+
+
+            <div class="auth-heading">
+
+                <span class="auth-eyebrow">
+                    WELCOME BACK, TRAVELLER
+                </span>
+
+                <h2>
+                    Let's continue<br />
+                    your journey.
+                </h2>
+
+                <p>
+                    Sign in to access your trips, saved destinations
+                    and travel plans.
+                </p>
+
+            </div>
+
+
+            @if (ViewBag.Message != null)
+            {
+                <div class="auth-alert">
+                    <i class="bi bi-info-circle"></i>
+                    <span>@ViewBag.Message</span>
+                </div>
+            }
+
+
+            <form asp-controller="Account"
+                  asp-action="Login"
+                  method="post"
+                  class="auth-form">
+
+
+                
+
+                <div class="auth-field">
+
+                    <label for="email">
+                        Email address
+                    </label>
+
+                    <div class="input-wrapper">
+
+                        <i class="bi bi-envelope"></i>
+
+                        <input type="email"
+                               id="email"
+                               name="email"
+                               placeholder="you@example.com"
+                               autocomplete="email"
+                               required />
+
+                    </div>
+
+                </div>
+
+
+                
+
+                <div class="auth-field">
+
+                    <div class="field-header">
+
+                        <label for="password">
+                            Password
+                        </label>
+
+                        <a href="#">
+                            Forgot password?
+                        </a>
+
+                    </div>
+
+                    <div class="input-wrapper">
+
+                        <i class="bi bi-lock"></i>
+
+                        <input type="password"
+                               id="password"
+                               name="password"
+                               placeholder="Enter your password"
+                               autocomplete="current-password"
+                               required />
+
+                        <button type="button"
+                                class="password-toggle"
+                                onclick="togglePassword()"
+                                aria-label="Show password">
+
+                            <i class="bi bi-eye"></i>
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                
+
+                <div class="remember-row">
+
+                    <label class="remember-me">
+
+                        <input type="checkbox"
+                               name="remember" />
+
+                        <span class="custom-checkbox">
+                            <i class="bi bi-check"></i>
+                        </span>
+
+                        <span>
+                            Remember me
+                        </span>
+
+                    </label>
+
+                </div>
+
+
+                
+
+                <button type="submit"
+                        class="auth-submit">
+
+                    <span>Start exploring</span>
+
+                    <i class="bi bi-arrow-right"></i>
+
+                </button>
+
+            </form>
+
+
+            
+
+            <div class="auth-divider">
+
+                <span>or</span>
+
+            </div>
+
+
+            
+
+            <div class="signup-box">
+
+                <div>
+                    <strong>New to Nomadic?</strong>
+
+                    <span>
+                        Create your account and start exploring.
+                    </span>
+                </div>
+
+                <a asp-controller="Account"
+                   asp-action="Register">
+
+                    Sign up
+
+                    <i class="bi bi-arrow-up-right"></i>
+
+                </a>
+
+            </div>
+
+
+            
+
+            <a asp-controller="Home"
+               asp-action="Index"
+               class="guest-link">
+
+                <i class="bi bi-compass"></i>
+
+                Continue exploring as guest
+
+            </a>
+
+
+            <div class="auth-footer">
+
+                <span>
+                    © @DateTime.Now.Year Nomadic
+                </span>
+
+                <span>
+                    Made for curious travellers
+                    <i class="bi bi-heart-fill"></i>
+                </span>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</div>
+
+
+@section Scripts {
+
+    <script>
+
+        function togglePassword() {
+
+            const password =
+                document.getElementById("password");
+
+            const button =
+                document.querySelector(".password-toggle");
+
+            const icon =
+                button.querySelector("i");
+
+            if (password.type === "password") {
+
+                password.type = "text";
+
+                icon.classList.remove("bi-eye");
+
+                icon.classList.add("bi-eye-slash");
+
+            } else {
+
+                password.type = "password";
+
+                icon.classList.remove("bi-eye-slash");
+
+                icon.classList.add("bi-eye");
+
+            }
+
+        }
+
+    </script>
+
+}

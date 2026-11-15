@@ -1,0 +1,2399 @@
+{\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang1033{\fonttbl{\f0\fnil\fcharset0 Calibri;}}
+{\*\generator Riched20 10.0.19041}\viewkind4\uc1 
+\pard\sa200\sl276\slmult1\b\f0\fs22\lang9 css-1:\b0\par
+\par
+:root \{\par
+    --dark-green: #073b2d;\par
+    --green: #3e7d35;\par
+    --light-green: #dff0d4;\par
+    --cream: #f8f7ed;\par
+    --white: #ffffff;\par
+    --text: #263d35;\par
+    --light-text: #718078;\par
+    --border: #dfe5dc;\par
+\}\par
+\par
+* \{\par
+    margin: 0;\par
+    padding: 0;\par
+    box-sizing: border-box;\par
+\}\par
+\par
+html \{\par
+    scroll-behavior: smooth;\par
+\}\par
+\par
+body \{\par
+    font-family: "DM Sans", sans-serif;\par
+    color: var(--text);\par
+    background: var(--cream);\par
+\}\par
+\par
+\par
+/* ================= NAVBAR ================= */\par
+\par
+.travel-navbar \{\par
+    height: 72px;\par
+    background: rgba(255, 255, 255, 0.96);\par
+    border-bottom: 1px solid #e7ebe4;\par
+    position: relative;\par
+    z-index: 1000;\par
+\}\par
+\par
+.logo-wrapper \{\par
+    display: flex;\par
+    align-items: center;\par
+    gap: 10px;\par
+\}\par
+\par
+.logo-icon \{\par
+    width: 40px;\par
+    height: 40px;\par
+    border-radius: 50%;\par
+    background: var(--light-green);\par
+    color: var(--dark-green);\par
+    display: flex;\par
+    align-items: center;\par
+    justify-content: center;\par
+    font-size: 21px;\par
+\}\par
+\par
+.logo-text \{\par
+    display: block;\par
+    color: var(--dark-green);\par
+    font-family: "Playfair Display", serif;\par
+    font-size: 24px;\par
+    font-weight: 700;\par
+    line-height: 22px;\par
+\}\par
+\par
+.logo-wrapper small \{\par
+    font-size: 8px;\par
+    color: #68766e;\par
+    letter-spacing: 1px;\par
+\}\par
+\par
+.navbar-nav \{\par
+    gap: 28px;\par
+\}\par
+\par
+.nav-link \{\par
+    color: #263d35 !important;\par
+    font-size: 14px;\par
+    position: relative;\par
+\}\par
+\par
+.nav-link.active \{\par
+    color: var(--dark-green) !important;\par
+\}\par
+\par
+.nav-link.active::after \{\par
+    content: "";\par
+    position: absolute;\par
+    height: 2px;\par
+    width: 35px;\par
+    background: var(--green);\par
+    left: 50%;\par
+    bottom: -7px;\par
+    transform: translateX(-50%);\par
+\}\par
+\par
+.nav-actions \{\par
+    display: flex;\par
+    align-items: center;\par
+    gap: 12px;\par
+\}\par
+\par
+.search-btn \{\par
+    background: none;\par
+    border: none;\par
+    font-size: 19px;\par
+    color: var(--dark-green);\par
+\}\par
+\par
+.login-btn \{\par
+    border: 1px solid var(--green);\par
+    border-radius: 25px;\par
+    padding: 8px 24px;\par
+    color: var(--dark-green);\par
+    background: white;\par
+\}\par
+\par
+.signup-btn \{\par
+    border-radius: 25px;\par
+    padding: 9px 25px;\par
+    color: white;\par
+    background: var(--green);\par
+    border: none;\par
+\}\par
+\par
+\par
+/* ================= HERO ================= */\par
+\par
+.hero \{\par
+    min-height: 520px;\par
+    position: relative;\par
+    overflow: hidden;\par
+\par
+    background:\par
+        linear-gradient(\par
+            90deg,\par
+            rgba(248,247,237,0.96) 0%,\par
+            rgba(248,247,237,0.75) 35%,\par
+            rgba(255,255,255,0.05) 70%\par
+        ),\par
+        url("https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1800&q=85");\par
+\par
+    background-size: cover;\par
+    background-position: center;\par
+\}\par
+\par
+.hero-container \{\par
+    padding-top: 70px;\par
+\}\par
+\par
+.hero-content \{\par
+    max-width: 650px;\par
+\}\par
+\par
+.hero-small-title \{\par
+    font-family: "Caveat", cursive;\par
+    color: var(--green);\par
+    font-size: 25px;\par
+    margin-bottom: 8px;\par
+\}\par
+\par
+.hero h1 \{\par
+    color: var(--dark-green);\par
+    font-family: "Playfair Display", serif;\par
+    font-size: 48px;\par
+    line-height: 1.13;\par
+    font-weight: 700;\par
+\}\par
+\par
+.hero p \{\par
+    max-width: 490px;\par
+    color: #53665e;\par
+    font-size: 16px;\par
+    line-height: 1.7;\par
+\}\par
+\par
+\par
+/* Leaves */\par
+\par
+.leaf \{\par
+    position: absolute;\par
+    font-size: 60px;\par
+    opacity: 0.75;\par
+\}\par
+\par
+.leaf-1 \{\par
+    top: 10px;\par
+    left: 10px;\par
+\}\par
+\par
+.leaf-2 \{\par
+    right: 15px;\par
+    bottom: 20px;\par
+\}\par
+\par
+\par
+/* ================= SEARCH ================= */\par
+\par
+.trip-search \{\par
+    background: rgba(255,255,255,0.97);\par
+    border-radius: 25px;\par
+    min-height: 100px;\par
+    position: relative;\par
+    z-index: 10;\par
+    margin-top: 48px;\par
+    display: flex;\par
+    align-items: center;\par
+    padding: 15px 18px;\par
+    box-shadow: 0 12px 35px rgba(0,0,0,0.12);\par
+\}\par
+\par
+.search-field \{\par
+    display: flex;\par
+    align-items: center;\par
+    gap: 12px;\par
+    padding: 0 18px;\par
+    flex: 1;\par
+\}\par
+\par
+.search-field > i \{\par
+    color: var(--green);\par
+    font-size: 21px;\par
+\}\par
+\par
+.search-field label \{\par
+    display: block;\par
+    color: var(--dark-green);\par
+    font-size: 12px;\par
+    font-weight: 600;\par
+    margin-bottom: 4px;\par
+\}\par
+\par
+.search-field select,\par
+.search-field input \{\par
+    border: none;\par
+    outline: none;\par
+    background: transparent;\par
+    color: #718078;\par
+    font-size: 12px;\par
+    width: 145px;\par
+\}\par
+\par
+.search-divider \{\par
+    width: 1px;\par
+    height: 45px;\par
+    background: #dfe4de;\par
+\}\par
+\par
+.find-btn \{\par
+    border: none;\par
+    background: var(--green);\par
+    color: white;\par
+    border-radius: 30px;\par
+    padding: 15px 23px;\par
+    font-weight: 600;\par
+    white-space: nowrap;\par
+\}\par
+\par
+.find-btn:hover \{\par
+    background: var(--dark-green);\par
+\}\par
+\par
+\par
+/* ================= FEATURES ================= */\par
+\par
+.features \{\par
+    background: #f9f9f1;\par
+    padding: 25px 0;\par
+    border-bottom: 1px solid #e6e9df;\par
+\}\par
+\par
+.feature-item \{\par
+    display: flex;\par
+    align-items: center;\par
+    gap: 13px;\par
+    padding: 10px 25px;\par
+    border-right: 1px solid #d8ded5;\par
+\}\par
+\par
+.feature-item:last-child \{\par
+    border: none;\par
+\}\par
+\par
+.feature-icon \{\par
+    width: 48px;\par
+    height: 48px;\par
+    background: #dcefd4;\par
+    color: var(--dark-green);\par
+    border-radius: 50%;\par
+    display: flex;\par
+    justify-content: center;\par
+    align-items: center;\par
+    font-size: 22px;\par
+\}\par
+\par
+.feature-item h5 \{\par
+    font-family: "Playfair Display", serif;\par
+    font-size: 15px;\par
+    margin: 0;\par
+    color: var(--dark-green);\par
+\}\par
+\par
+.feature-item p \{\par
+    font-size: 11px;\par
+    color: #718078;\par
+    margin: 4px 0 0;\par
+\}\par
+\par
+\par
+/* ================= SECTIONS ================= */\par
+\par
+.destinations-section,\par
+.packages-section \{\par
+    padding: 75px 0;\par
+\}\par
+\par
+.section-heading \{\par
+    text-align: center;\par
+    margin-bottom: 40px;\par
+\}\par
+\par
+.section-heading h2 \{\par
+    display: inline-block;\par
+    margin: 0 15px;\par
+    color: var(--dark-green);\par
+    font-family: "Playfair Display", serif;\par
+    font-size: 34px;\par
+\}\par
+\par
+.section-heading > span \{\par
+    color: #8aab70;\par
+\}\par
+\par
+.section-heading p \{\par
+    margin: 10px auto 0;\par
+    max-width: 550px;\par
+    color: var(--light-text);\par
+    font-size: 14px;\par
+\}\par
+\par
+\par
+/* ================= DESTINATION CARDS ================= */\par
+\par
+.destination-card \{\par
+    height: 310px;\par
+    border-radius: 15px;\par
+    overflow: hidden;\par
+    position: relative;\par
+    cursor: pointer;\par
+    box-shadow: 0 8px 25px rgba(0,0,0,0.10);\par
+\}\par
+\par
+.destination-card img \{\par
+    width: 100%;\par
+    height: 100%;\par
+    object-fit: cover;\par
+    transition: 0.5s;\par
+\}\par
+\par
+.destination-card:hover img \{\par
+    transform: scale(1.08);\par
+\}\par
+\par
+.destination-card::after \{\par
+    content: "";\par
+    position: absolute;\par
+    inset: 0;\par
+    background: linear-gradient(\par
+        transparent 35%,\par
+        rgba(0,0,0,0.75)\par
+    );\par
+\}\par
+\par
+.destination-overlay \{\par
+    position: absolute;\par
+    bottom: 18px;\par
+    left: 20px;\par
+    right: 20px;\par
+    z-index: 2;\par
+    color: white;\par
+\}\par
+\par
+.destination-overlay h3 \{\par
+    font-family: "Playfair Display", serif;\par
+    font-size: 24px;\par
+    margin-bottom: 3px;\par
+\}\par
+\par
+.destination-overlay p \{\par
+    font-size: 12px;\par
+    margin-bottom: 12px;\par
+\}\par
+\par
+.destination-overlay button \{\par
+    background: white;\par
+    border: none;\par
+    border-radius: 20px;\par
+    padding: 8px 15px;\par
+    color: var(--dark-green);\par
+    font-size: 11px;\par
+    font-weight: 600;\par
+\}\par
+\par
+.destination-overlay button i \{\par
+    margin-left: 8px;\par
+\}\par
+\par
+\par
+/* ================= PACKAGES ================= */\par
+\par
+.packages-section \{\par
+    background: white;\par
+\}\par
+\par
+.package-card \{\par
+    border-radius: 18px;\par
+    overflow: hidden;\par
+    background: #fff;\par
+    box-shadow: 0 8px 25px rgba(0,0,0,0.08);\par
+    transition: 0.3s;\par
+\}\par
+\par
+.package-card:hover \{\par
+    transform: translateY(-6px);\par
+\}\par
+\par
+.package-card > img \{\par
+    width: 100%;\par
+    height: 220px;\par
+    object-fit: cover;\par
+\}\par
+\par
+.package-content \{\par
+    padding: 22px;\par
+\}\par
+\par
+.package-location \{\par
+    color: var(--green);\par
+    font-size: 12px;\par
+    margin-bottom: 7px;\par
+\}\par
+\par
+.package-content h3 \{\par
+    font-family: "Playfair Display", serif;\par
+    color: var(--dark-green);\par
+    font-size: 22px;\par
+\}\par
+\par
+.package-content p \{\par
+    color: #738078;\par
+    font-size: 13px;\par
+    line-height: 1.6;\par
+\}\par
+\par
+.package-bottom \{\par
+    display: flex;\par
+    justify-content: space-between;\par
+    align-items: end;\par
+    margin-top: 20px;\par
+\}\par
+\par
+.package-bottom small \{\par
+    display: block;\par
+    color: #8a948e;\par
+    font-size: 10px;\par
+\}\par
+\par
+.package-bottom strong \{\par
+    color: var(--dark-green);\par
+    font-size: 20px;\par
+\}\par
+\par
+.package-bottom button \{\par
+    background: var(--green);\par
+    border: none;\par
+    color: white;\par
+    border-radius: 20px;\par
+    padding: 9px 15px;\par
+    font-size: 12px;\par
+\}\par
+\par
+\par
+/* ================= ABOUT ================= */\par
+\par
+.about-section \{\par
+    padding: 90px 0;\par
+    background: #f5f6eb;\par
+\}\par
+\par
+.memory-image \{\par
+    position: relative;\par
+    padding-right: 50px;\par
+\}\par
+\par
+.memory-image img \{\par
+    width: 100%;\par
+    height: 390px;\par
+    object-fit: cover;\par
+    border-radius: 150px 30px 150px 30px;\par
+\}\par
+\par
+.photo-note \{\par
+    position: absolute;\par
+    right: 0;\par
+    bottom: 15px;\par
+    background: #f8f7ed;\par
+    padding: 20px;\par
+    font-family: "Caveat", cursive;\par
+    color: var(--dark-green);\par
+    font-size: 22px;\par
+    transform: rotate(-5deg);\par
+\}\par
+\par
+.about-content \{\par
+    padding-left: 35px;\par
+\}\par
+\par
+.about-small \{\par
+    color: var(--green);\par
+    font-family: "Caveat", cursive;\par
+    font-size: 22px;\par
+\}\par
+\par
+.about-content h2 \{\par
+    font-family: "Playfair Display", serif;\par
+    font-size: 38px;\par
+    color: var(--dark-green);\par
+    margin: 8px 0 20px;\par
+\}\par
+\par
+.about-content h2 span \{\par
+    display: block;\par
+\}\par
+\par
+.about-content > p \{\par
+    color: #68766e;\par
+    line-height: 1.8;\par
+    font-size: 14px;\par
+    max-width: 500px;\par
+\}\par
+\par
+.about-features \{\par
+    display: grid;\par
+    grid-template-columns: repeat(4, 1fr);\par
+    gap: 15px;\par
+    margin-top: 30px;\par
+\}\par
+\par
+.about-features div \{\par
+    border-right: 1px solid #d7ddd2;\par
+    padding-right: 10px;\par
+\}\par
+\par
+.about-features i \{\par
+    display: block;\par
+    font-size: 21px;\par
+    color: var(--green);\par
+    margin-bottom: 8px;\par
+\}\par
+\par
+.about-features strong,\par
+.about-features span \{\par
+    display: block;\par
+    font-size: 11px;\par
+\}\par
+\par
+.about-features strong \{\par
+    color: var(--dark-green);\par
+\}\par
+\par
+.about-features span \{\par
+    color: #7a847e;\par
+\}\par
+\par
+\par
+/* ================= NEWSLETTER ================= */\par
+\par
+.newsletter \{\par
+    padding: 70px 0;\par
+    background: white;\par
+\}\par
+\par
+.newsletter-box \{\par
+    background: #dcefd4;\par
+    border-radius: 30px;\par
+    padding: 45px 55px;\par
+    display: flex;\par
+    align-items: center;\par
+    justify-content: space-between;\par
+\}\par
+\par
+.newsletter-box span \{\par
+    color: var(--green);\par
+    font-family: "Caveat", cursive;\par
+    font-size: 20px;\par
+\}\par
+\par
+.newsletter-box h2 \{\par
+    font-family: "Playfair Display", serif;\par
+    color: var(--dark-green);\par
+    font-size: 30px;\par
+    margin: 5px 0;\par
+\}\par
+\par
+.newsletter-box p \{\par
+    color: #627168;\par
+    margin: 0;\par
+\}\par
+\par
+.newsletter-form \{\par
+    display: flex;\par
+    background: white;\par
+    padding: 6px;\par
+    border-radius: 30px;\par
+\}\par
+\par
+.newsletter-form input \{\par
+    border: none;\par
+    outline: none;\par
+    padding: 10px 18px;\par
+    width: 240px;\par
+\}\par
+\par
+.newsletter-form button \{\par
+    background: var(--green);\par
+    color: white;\par
+    border: none;\par
+    padding: 11px 20px;\par
+    border-radius: 25px;\par
+\}\par
+\par
+\par
+/* ================= FOOTER ================= */\par
+\par
+footer \{\par
+    background: var(--dark-green);\par
+    color: white;\par
+    padding: 60px 0 20px;\par
+\}\par
+\par
+.footer-logo \{\par
+    font-family: "Playfair Display", serif;\par
+    font-size: 25px;\par
+    font-weight: bold;\par
+    margin-bottom: 15px;\par
+\}\par
+\par
+.footer-logo i \{\par
+    margin-right: 8px;\par
+\}\par
+\par
+footer p \{\par
+    color: #b6c5bd;\par
+    font-size: 13px;\par
+    line-height: 1.7;\par
+    max-width: 300px;\par
+\}\par
+\par
+footer h5 \{\par
+    font-family: "Playfair Display", serif;\par
+    margin-bottom: 20px;\par
+\}\par
+\par
+footer a \{\par
+    display: block;\par
+    color: #b6c5bd;\par
+    text-decoration: none;\par
+    font-size: 13px;\par
+    margin-bottom: 10px;\par
+\}\par
+\par
+footer a:hover \{\par
+    color: white;\par
+\}\par
+\par
+.social-icons \{\par
+    display: flex;\par
+    gap: 10px;\par
+\}\par
+\par
+.social-icons a \{\par
+    width: 38px;\par
+    height: 38px;\par
+    border: 1px solid #5d776b;\par
+    border-radius: 50%;\par
+    display: flex;\par
+    align-items: center;\par
+    justify-content: center;\par
+\}\par
+\par
+.social-icons a:hover \{\par
+    background: var(--green);\par
+\}\par
+\par
+footer hr \{\par
+    border-color: #38584d;\par
+    margin: 40px 0 20px;\par
+\}\par
+\par
+.footer-bottom \{\par
+    display: flex;\par
+    justify-content: space-between;\par
+\}\par
+\par
+.footer-bottom p \{\par
+    margin: 0;\par
+\}\par
+\par
+.footer-bottom a \{\par
+    display: inline-block;\par
+    margin-left: 20px;\par
+\}\par
+\par
+\par
+/* ================= RESPONSIVE ================= */\par
+\par
+@media (max-width: 991px) \{\par
+\par
+    .travel-navbar \{\par
+        height: auto;\par
+        padding: 12px 0;\par
+    \}\par
+\par
+    .nav-actions \{\par
+        margin-top: 15px;\par
+    \}\par
+\par
+    .hero h1 \{\par
+        font-size: 38px;\par
+    \}\par
+\par
+    .trip-search \{\par
+        flex-wrap: wrap;\par
+        gap: 10px;\par
+    \}\par
+\par
+    .search-divider \{\par
+        display: none;\par
+    \}\par
+\par
+    .search-field \{\par
+        min-width: 45%;\par
+    \}\par
+\par
+    .find-btn \{\par
+        width: 100%;\par
+    \}\par
+\par
+    .feature-item \{\par
+        border-right: none;\par
+        margin-bottom: 15px;\par
+    \}\par
+\par
+    .about-content \{\par
+        padding-left: 0;\par
+        margin-top: 50px;\par
+    \}\par
+\par
+    .newsletter-box \{\par
+        display: block;\par
+    \}\par
+\par
+    .newsletter-form \{\par
+        margin-top: 25px;\par
+    \}\par
+\}\par
+\par
+\par
+@media (max-width: 576px) \{\par
+\par
+    .hero \{\par
+        min-height: 650px;\par
+    \}\par
+\par
+    .hero-container \{\par
+        padding-top: 50px;\par
+    \}\par
+\par
+    .hero h1 \{\par
+        font-size: 32px;\par
+    \}\par
+\par
+    .hero p \{\par
+        font-size: 14px;\par
+    \}\par
+\par
+    .search-field \{\par
+        min-width: 100%;\par
+    \}\par
+\par
+    .trip-search \{\par
+        padding: 20px;\par
+    \}\par
+\par
+    .section-heading h2 \{\par
+        font-size: 27px;\par
+    \}\par
+\par
+    .about-features \{\par
+        grid-template-columns: repeat(2, 1fr);\par
+    \}\par
+\par
+    .newsletter-box \{\par
+        padding: 30px;\par
+    \}\par
+\par
+    .newsletter-form \{\par
+        display: block;\par
+        background: transparent;\par
+    \}\par
+\par
+    .newsletter-form input \{\par
+        width: 100%;\par
+        margin-bottom: 10px;\par
+        border-radius: 25px;\par
+    \}\par
+\par
+    .newsletter-form button \{\par
+        width: 100%;\par
+    \}\par
+\par
+    .footer-bottom \{\par
+        display: block;\par
+    \}\par
+\par
+    .footer-bottom div \{\par
+        margin-top: 15px;\par
+    \}\par
+\par
+    .footer-bottom a \{\par
+        margin-left: 0;\par
+        margin-right: 15px;\par
+    \}\par
+\}\par
+\par
+\b CSS-2:\par
+\b0 /* =========================================================\par
+   TRAVELNEST - PERSONALIZED TRAVEL WEBSITE\par
+   Main CSS\par
+   ========================================================= */\par
+\par
+\par
+/* =========================================================\par
+   1. ROOT VARIABLES\par
+   ========================================================= */\par
+\par
+:root \{\par
+    --dark-green: #073b2d;\par
+    --green: #3e7d35;\par
+    --green-light: #dcefd4;\par
+    --green-soft: #edf5e8;\par
+\par
+    --cream: #f8f7ed;\par
+    --cream-dark: #f1f2e7;\par
+\par
+    --white: #ffffff;\par
+\par
+    --text: #263d35;\par
+    --text-light: #718078;\par
+\par
+    --border: #dfe5dc;\par
+\par
+    --shadow: 0 10px 30px rgba(0, 0, 0, 0.10);\par
+\}\par
+\par
+\par
+/* =========================================================\par
+   2. GENERAL\par
+   ========================================================= */\par
+\par
+* \{\par
+    margin: 0;\par
+    padding: 0;\par
+    box-sizing: border-box;\par
+\}\par
+\par
+html \{\par
+    scroll-behavior: smooth;\par
+\}\par
+\par
+body \{\par
+    margin: 0;\par
+    padding: 0;\par
+\par
+    font-family: "DM Sans", sans-serif;\par
+\par
+    color: var(--text);\par
+    background: var(--cream);\par
+\par
+    overflow-x: hidden;\par
+\}\par
+\par
+a \{\par
+    text-decoration: none;\par
+\}\par
+\par
+button \{\par
+    font-family: inherit;\par
+\}\par
+\par
+img \{\par
+    max-width: 100%;\par
+    display: block;\par
+\}\par
+\par
+\par
+/* =========================================================\par
+   3. NAVBAR\par
+   ========================================================= */\par
+\par
+.travel-navbar \{\par
+    width: 100%;\par
+    min-height: 72px;\par
+\par
+    background: rgba(255, 255, 255, 0.97);\par
+\par
+    border-bottom: 1px solid #e7ebe4;\par
+\par
+    position: relative;\par
+    z-index: 1000;\par
+\}\par
+\par
+.travel-navbar .container \{\par
+    min-height: 72px;\par
+\}\par
+\par
+\par
+/* Logo */\par
+\par
+.logo-wrapper \{\par
+    display: flex;\par
+    align-items: center;\par
+\par
+    gap: 10px;\par
+\}\par
+\par
+.logo-icon \{\par
+    width: 42px;\par
+    height: 42px;\par
+\par
+    border-radius: 50%;\par
+\par
+    background: var(--green-light);\par
+\par
+    color: var(--dark-green);\par
+\par
+    display: flex;\par
+    align-items: center;\par
+    justify-content: center;\par
+\par
+    font-size: 21px;\par
+\}\par
+\par
+.logo-text \{\par
+    display: block;\par
+\par
+    color: var(--dark-green);\par
+\par
+    font-family: "Playfair Display", serif;\par
+\par
+    font-size: 25px;\par
+    font-weight: 700;\par
+\par
+    line-height: 22px;\par
+\}\par
+\par
+.logo-wrapper small \{\par
+    display: block;\par
+\par
+    color: #68766e;\par
+\par
+    font-size: 8px;\par
+\par
+    letter-spacing: 1px;\par
+\par
+    margin-top: 4px;\par
+\}\par
+\par
+\par
+/* Navigation */\par
+\par
+.navbar-nav \{\par
+    gap: 25px;\par
+\}\par
+\par
+.nav-link \{\par
+    color: #263d35 !important;\par
+\par
+    font-size: 14px;\par
+\par
+    position: relative;\par
+\par
+    padding: 10px 3px !important;\par
+\par
+    transition: 0.3s;\par
+\}\par
+\par
+.nav-link:hover \{\par
+    color: var(--green) !important;\par
+\}\par
+\par
+.nav-link.active \{\par
+    color: var(--dark-green) !important;\par
+\}\par
+\par
+.nav-link.active::after \{\par
+    content: "";\par
+\par
+    position: absolute;\par
+\par
+    width: 35px;\par
+    height: 2px;\par
+\par
+    background: var(--green);\par
+\par
+    left: 50%;\par
+    bottom: 0;\par
+\par
+    transform: translateX(-50%);\par
+\}\par
+\par
+\par
+/* Navbar buttons */\par
+\par
+.nav-actions \{\par
+    display: flex;\par
+    align-items: center;\par
+\par
+    gap: 12px;\par
+\}\par
+\par
+.search-btn \{\par
+    border: none;\par
+\par
+    background: transparent;\par
+\par
+    color: var(--dark-green);\par
+\par
+    font-size: 19px;\par
+\par
+    cursor: pointer;\par
+\par
+    transition: 0.3s;\par
+\}\par
+\par
+.search-btn:hover \{\par
+    color: var(--green);\par
+\par
+    transform: scale(1.1);\par
+\}\par
+\par
+.login-btn \{\par
+    border: 1px solid var(--green);\par
+\par
+    background: white;\par
+\par
+    color: var(--dark-green);\par
+\par
+    border-radius: 25px;\par
+\par
+    padding: 8px 24px;\par
+\par
+    transition: 0.3s;\par
+\}\par
+\par
+.login-btn:hover \{\par
+    background: var(--green);\par
+\par
+    color: white;\par
+\}\par
+\par
+.signup-btn \{\par
+    border: none;\par
+\par
+    background: var(--green);\par
+\par
+    color: white;\par
+\par
+    border-radius: 25px;\par
+\par
+    padding: 9px 25px;\par
+\par
+    transition: 0.3s;\par
+\}\par
+\par
+.signup-btn:hover \{\par
+    background: var(--dark-green);\par
+\par
+    color: white;\par
+\}\par
+\par
+\par
+/* =========================================================\par
+   4. HERO SECTION\par
+   ========================================================= */\par
+\par
+.hero \{\par
+    min-height: 520px;\par
+\par
+    position: relative;\par
+\par
+    overflow: hidden;\par
+\par
+    background:\par
+        linear-gradient(\par
+            90deg,\par
+            rgba(248, 247, 237, 0.97) 0%,\par
+            rgba(248, 247, 237, 0.82) 30%,\par
+            rgba(255, 255, 255, 0.20) 70%,\par
+            rgba(255, 255, 255, 0.05) 100%\par
+        ),\par
+\par
+        url("https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1800&q=85");\par
+\par
+    background-size: cover;\par
+\par
+    background-position: center;\par
+\}\par
+\par
+\par
+/* Hero container */\par
+\par
+.hero-container \{\par
+    padding-top: 70px;\par
+\par
+    position: relative;\par
+\par
+    z-index: 2;\par
+\}\par
+\par
+\par
+/* Hero text */\par
+\par
+.hero-content \{\par
+    max-width: 680px;\par
+\}\par
+\par
+.hero-small-title \{\par
+    color: var(--green);\par
+\par
+    font-family: "Caveat", cursive;\par
+\par
+    font-size: 26px;\par
+\par
+    margin-bottom: 10px;\par
+\}\par
+\par
+.hero h1 \{\par
+    color: var(--dark-green);\par
+\par
+    font-family: "Playfair Display", serif;\par
+\par
+    font-size: 48px;\par
+\par
+    line-height: 1.15;\par
+\par
+    font-weight: 700;\par
+\par
+    margin-bottom: 18px;\par
+\}\par
+\par
+.hero p \{\par
+    max-width: 500px;\par
+\par
+    color: #53665e;\par
+\par
+    font-size: 16px;\par
+\par
+    line-height: 1.7;\par
+\par
+    margin-bottom: 0;\par
+\}\par
+\par
+\par
+/* Decorative leaves */\par
+\par
+.leaf \{\par
+    position: absolute;\par
+\par
+    font-size: 60px;\par
+\par
+    opacity: 0.7;\par
+\par
+    z-index: 1;\par
+\}\par
+\par
+.leaf-1 \{\par
+    top: 5px;\par
+\par
+    left: 10px;\par
+\par
+    transform: rotate(-20deg);\par
+\}\par
+\par
+.leaf-2 \{\par
+    right: 10px;\par
+\par
+    bottom: 15px;\par
+\par
+    transform: rotate(20deg);\par
+\}\par
+\par
+\par
+/* =========================================================\par
+   5. TRIP SEARCH BOX\par
+   ========================================================= */\par
+\par
+.trip-search \{\par
+    width: 100%;\par
+\par
+    min-height: 100px;\par
+\par
+    margin-top: 48px;\par
+\par
+    padding: 15px 18px;\par
+\par
+    background: rgba(255, 255, 255, 0.98);\par
+\par
+    border-radius: 25px;\par
+\par
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.14);\par
+\par
+    display: flex;\par
+\par
+    align-items: center;\par
+\par
+    position: relative;\par
+\par
+    z-index: 5;\par
+\}\par
+\par
+\par
+/* Search field */\par
+\par
+.search-field \{\par
+    flex: 1;\par
+\par
+    display: flex;\par
+\par
+    align-items: center;\par
+\par
+    gap: 12px;\par
+\par
+    padding: 0 18px;\par
+\}\par
+\par
+.search-field > i \{\par
+    color: var(--green);\par
+\par
+    font-size: 21px;\par
+\par
+    flex-shrink: 0;\par
+\}\par
+\par
+.search-field label \{\par
+    display: block;\par
+\par
+    color: var(--dark-green);\par
+\par
+    font-size: 12px;\par
+\par
+    font-weight: 600;\par
+\par
+    margin-bottom: 4px;\par
+\}\par
+\par
+.search-field select,\par
+.search-field input \{\par
+    width: 145px;\par
+\par
+    border: none;\par
+\par
+    outline: none;\par
+\par
+    background: transparent;\par
+\par
+    color: #718078;\par
+\par
+    font-size: 12px;\par
+\par
+    cursor: pointer;\par
+\}\par
+\par
+.search-field select:focus,\par
+.search-field input:focus \{\par
+    outline: none;\par
+\par
+    box-shadow: none;\par
+\}\par
+\par
+\par
+/* Divider */\par
+\par
+.search-divider \{\par
+    width: 1px;\par
+\par
+    height: 45px;\par
+\par
+    background: #dfe4de;\par
+\par
+    flex-shrink: 0;\par
+\}\par
+\par
+\par
+/* Find button */\par
+\par
+.find-btn \{\par
+    border: none;\par
+\par
+    background: var(--green);\par
+\par
+    color: white;\par
+\par
+    border-radius: 30px;\par
+\par
+    padding: 15px 23px;\par
+\par
+    font-size: 13px;\par
+\par
+    font-weight: 600;\par
+\par
+    white-space: nowrap;\par
+\par
+    cursor: pointer;\par
+\par
+    transition: 0.3s;\par
+\}\par
+\par
+.find-btn:hover \{\par
+    background: var(--dark-green);\par
+\par
+    transform: translateY(-2px);\par
+\par
+    box-shadow: 0 7px 15px rgba(62, 125, 53, 0.25);\par
+\}\par
+\par
+\par
+/* =========================================================\par
+   6. FEATURES\par
+   ========================================================= */\par
+\par
+.features \{\par
+    width: 100%;\par
+\par
+    background: #f9f9f1;\par
+\par
+    padding: 25px 0;\par
+\par
+    border-bottom: 1px solid #e6e9df;\par
+\}\par
+\par
+.feature-item \{\par
+    display: flex;\par
+\par
+    align-items: center;\par
+\par
+    gap: 13px;\par
+\par
+    padding: 10px 25px;\par
+\par
+    border-right: 1px solid #d8ded5;\par
+\}\par
+\par
+.feature-item:last-child \{\par
+    border-right: none;\par
+\}\par
+\par
+.feature-icon \{\par
+    width: 48px;\par
+    height: 48px;\par
+\par
+    flex-shrink: 0;\par
+\par
+    background: var(--green-light);\par
+\par
+    color: var(--dark-green);\par
+\par
+    border-radius: 50%;\par
+\par
+    display: flex;\par
+\par
+    align-items: center;\par
+\par
+    justify-content: center;\par
+\par
+    font-size: 22px;\par
+\}\par
+\par
+.feature-item h5 \{\par
+    font-family: "Playfair Display", serif;\par
+\par
+    font-size: 15px;\par
+\par
+    color: var(--dark-green);\par
+\par
+    margin: 0;\par
+\}\par
+\par
+.feature-item p \{\par
+    font-size: 11px;\par
+\par
+    color: var(--text-light);\par
+\par
+    margin: 4px 0 0;\par
+\}\par
+\par
+\par
+/* =========================================================\par
+   7. COMMON SECTION\par
+   ========================================================= */\par
+\par
+.destinations-section,\par
+.packages-section \{\par
+    padding: 75px 0;\par
+\}\par
+\par
+.section-heading \{\par
+    text-align: center;\par
+\par
+    margin-bottom: 40px;\par
+\}\par
+\par
+.section-heading h2 \{\par
+    display: inline-block;\par
+\par
+    margin: 0 15px;\par
+\par
+    color: var(--dark-green);\par
+\par
+    font-family: "Playfair Display", serif;\par
+\par
+    font-size: 34px;\par
+\par
+    font-weight: 700;\par
+\}\par
+\par
+.section-heading > span \{\par
+    color: #8aab70;\par
+\par
+    font-size: 18px;\par
+\}\par
+\par
+.section-heading p \{\par
+    max-width: 550px;\par
+\par
+    margin: 10px auto 0;\par
+\par
+    color: var(--text-light);\par
+\par
+    font-size: 14px;\par
+\par
+    line-height: 1.6;\par
+\}\par
+\par
+\par
+/* =========================================================\par
+   8. DESTINATION CARDS\par
+   ========================================================= */\par
+\par
+.destination-card \{\par
+    height: 310px;\par
+\par
+    position: relative;\par
+\par
+    overflow: hidden;\par
+\par
+    border-radius: 15px;\par
+\par
+    cursor: pointer;\par
+\par
+    box-shadow: var(--shadow);\par
+\par
+    transition: 0.4s;\par
+\}\par
+\par
+.destination-card:hover \{\par
+    transform: translateY(-6px);\par
+\par
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);\par
+\}\par
+\par
+.destination-card img \{\par
+    width: 100%;\par
+    height: 100%;\par
+\par
+    object-fit: cover;\par
+\par
+    transition: 0.5s;\par
+\}\par
+\par
+.destination-card:hover img \{\par
+    transform: scale(1.08);\par
+\}\par
+\par
+\par
+/* Card dark gradient */\par
+\par
+.destination-card::after \{\par
+    content: "";\par
+\par
+    position: absolute;\par
+\par
+    inset: 0;\par
+\par
+    background:\par
+        linear-gradient(\par
+            transparent 30%,\par
+            rgba(0, 0, 0, 0.78)\par
+        );\par
+\par
+    pointer-events: none;\par
+\}\par
+\par
+\par
+/* Destination content */\par
+\par
+.destination-overlay \{\par
+    position: absolute;\par
+\par
+    left: 20px;\par
+    right: 20px;\par
+    bottom: 18px;\par
+\par
+    color: white;\par
+\par
+    z-index: 2;\par
+\}\par
+\par
+.destination-overlay h3 \{\par
+    font-family: "Playfair Display", serif;\par
+\par
+    font-size: 24px;\par
+\par
+    margin-bottom: 3px;\par
+\}\par
+\par
+.destination-overlay p \{\par
+    font-size: 12px;\par
+\par
+    margin-bottom: 12px;\par
+\}\par
+\par
+.destination-overlay button \{\par
+    border: none;\par
+\par
+    background: white;\par
+\par
+    color: var(--dark-green);\par
+\par
+    border-radius: 20px;\par
+\par
+    padding: 8px 15px;\par
+\par
+    font-size: 11px;\par
+\par
+    font-weight: 600;\par
+\par
+    cursor: pointer;\par
+\par
+    transition: 0.3s;\par
+\}\par
+\par
+.destination-overlay button:hover \{\par
+    background: var(--green-light);\par
+\par
+    transform: translateX(3px);\par
+\}\par
+\par
+.destination-overlay button i \{\par
+    margin-left: 8px;\par
+\}\par
+\par
+\par
+/* =========================================================\par
+   9. PACKAGES\par
+   ========================================================= */\par
+\par
+.packages-section \{\par
+    background: white;\par
+\}\par
+\par
+.package-card \{\par
+    height: 100%;\par
+\par
+    overflow: hidden;\par
+\par
+    background: white;\par
+\par
+    border-radius: 18px;\par
+\par
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);\par
+\par
+    transition: 0.3s;\par
+\}\par
+\par
+.package-card:hover \{\par
+    transform: translateY(-6px);\par
+\par
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);\par
+\}\par
+\par
+.package-card > img \{\par
+    width: 100%;\par
+\par
+    height: 220px;\par
+\par
+    object-fit: cover;\par
+\}\par
+\par
+.package-content \{\par
+    padding: 22px;\par
+\}\par
+\par
+.package-location \{\par
+    color: var(--green);\par
+\par
+    font-size: 12px;\par
+\par
+    margin-bottom: 7px;\par
+\}\par
+\par
+.package-content h3 \{\par
+    color: var(--dark-green);\par
+\par
+    font-family: "Playfair Display", serif;\par
+\par
+    font-size: 22px;\par
+\par
+    margin-bottom: 10px;\par
+\}\par
+\par
+.package-content p \{\par
+    color: #738078;\par
+\par
+    font-size: 13px;\par
+\par
+    line-height: 1.6;\par
+\par
+    min-height: 42px;\par
+\}\par
+\par
+.package-bottom \{\par
+    display: flex;\par
+\par
+    justify-content: space-between;\par
+\par
+    align-items: end;\par
+\par
+    margin-top: 20px;\par
+\}\par
+\par
+.package-bottom small \{\par
+    display: block;\par
+\par
+    color: #8a948e;\par
+\par
+    font-size: 10px;\par
+\}\par
+\par
+.package-bottom strong \{\par
+    display: block;\par
+\par
+    color: var(--dark-green);\par
+\par
+    font-size: 20px;\par
+\par
+    margin-top: 2px;\par
+\}\par
+\par
+.package-bottom button \{\par
+    border: none;\par
+\par
+    background: var(--green);\par
+\par
+    color: white;\par
+\par
+    border-radius: 20px;\par
+\par
+    padding: 9px 15px;\par
+\par
+    font-size: 12px;\par
+\par
+    cursor: pointer;\par
+\par
+    transition: 0.3s;\par
+\}\par
+\par
+.package-bottom button:hover \{\par
+    background: var(--dark-green);\par
+\}\par
+\par
+\par
+/* =========================================================\par
+   10. ABOUT SECTION\par
+   ========================================================= */\par
+\par
+.about-section \{\par
+    padding: 90px 0;\par
+\par
+    background: #f5f6eb;\par
+\}\par
+\par
+.memory-image \{\par
+    position: relative;\par
+\par
+    padding-right: 50px;\par
+\}\par
+\par
+.memory-image img \{\par
+    width: 100%;\par
+\par
+    height: 390px;\par
+\par
+    object-fit: cover;\par
+\par
+    border-radius: 150px 30px 150px 30px;\par
+\}\par
+\par
+.photo-note \{\par
+    position: absolute;\par
+\par
+    right: 0;\par
+\par
+    bottom: 15px;\par
+\par
+    padding: 20px;\par
+\par
+    background: #f8f7ed;\par
+\par
+    color: var(--dark-green);\par
+\par
+    font-family: "Caveat", cursive;\par
+\par
+    font-size: 22px;\par
+\par
+    line-height: 1.1;\par
+\par
+    transform: rotate(-5deg);\par
+\par
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);\par
+\}\par
+\par
+.about-content \{\par
+    padding-left: 35px;\par
+\}\par
+\par
+.about-small \{\par
+    color: var(--green);\par
+\par
+    font-family: "Caveat", cursive;\par
+\par
+    font-size: 22px;\par
+\}\par
+\par
+.about-content h2 \{\par
+    color: var(--dark-green);\par
+\par
+    font-family: "Playfair Display", serif;\par
+\par
+    font-size: 38px;\par
+\par
+    line-height: 1.2;\par
+\par
+    margin: 8px 0 20px;\par
+\}\par
+\par
+.about-content h2 span \{\par
+    display: block;\par
+\}\par
+\par
+.about-content > p \{\par
+    max-width: 500px;\par
+\par
+    color: #68766e;\par
+\par
+    font-size: 14px;\par
+\par
+    line-height: 1.8;\par
+\}\par
+\par
+\par
+/* About features */\par
+\par
+.about-features \{\par
+    display: grid;\par
+\par
+    grid-template-columns: repeat(4, 1fr);\par
+\par
+    gap: 15px;\par
+\par
+    margin-top: 30px;\par
+\}\par
+\par
+.about-features div \{\par
+    padding-right: 10px;\par
+\par
+    border-right: 1px solid #d7ddd2;\par
+\}\par
+\par
+.about-features div:last-child \{\par
+    border-right: none;\par
+\}\par
+\par
+.about-features i \{\par
+    display: block;\par
+\par
+    color: var(--green);\par
+\par
+    font-size: 21px;\par
+\par
+    margin-bottom: 8px;\par
+\}\par
+\par
+.about-features strong,\par
+.about-features span \{\par
+    display: block;\par
+\par
+    font-size: 11px;\par
+\}\par
+\par
+.about-features strong \{\par
+    color: var(--dark-green);\par
+\}\par
+\par
+.about-features span \{\par
+    color: #7a847e;\par
+\par
+    margin-top: 2px;\par
+\}\par
+\par
+\par
+/* =========================================================\par
+   11. NEWSLETTER\par
+   ========================================================= */\par
+\par
+.newsletter \{\par
+    padding: 70px 0;\par
+\par
+    background: white;\par
+\}\par
+\par
+.newsletter-box \{\par
+    background: var(--green-light);\par
+\par
+    border-radius: 30px;\par
+\par
+    padding: 45px 55px;\par
+\par
+    display: flex;\par
+\par
+    align-items: center;\par
+\par
+    justify-content: space-between;\par
+\par
+    gap: 30px;\par
+\}\par
+\par
+.newsletter-box span \{\par
+    color: var(--green);\par
+\par
+    font-family: "Caveat", cursive;\par
+\par
+    font-size: 20px;\par
+\}\par
+\par
+.newsletter-box h2 \{\par
+    color: var(--dark-green);\par
+\par
+    font-family: "Playfair Display", serif;\par
+\par
+    font-size: 30px;\par
+\par
+    margin: 5px 0;\par
+\}\par
+\par
+.newsletter-box p \{\par
+    color: #627168;\par
+\par
+    margin: 0;\par
+\}\par
+\par
+\par
+/* Newsletter form */\par
+\par
+.newsletter-form \{\par
+    display: flex;\par
+\par
+    align-items: center;\par
+\par
+    background: white;\par
+\par
+    padding: 6px;\par
+\par
+    border-radius: 30px;\par
+\}\par
+\par
+.newsletter-form input \{\par
+    width: 240px;\par
+\par
+    border: none;\par
+\par
+    outline: none;\par
+\par
+    padding: 10px 18px;\par
+\par
+    color: var(--text);\par
+\}\par
+\par
+.newsletter-form button \{\par
+    border: none;\par
+\par
+    background: var(--green);\par
+\par
+    color: white;\par
+\par
+    padding: 11px 20px;\par
+\par
+    border-radius: 25px;\par
+\par
+    cursor: pointer;\par
+\par
+    transition: 0.3s;\par
+\}\par
+\par
+.newsletter-form button:hover \{\par
+    background: var(--dark-green);\par
+\}\par
+\par
+\par
+/* =========================================================\par
+   12. FOOTER\par
+   ========================================================= */\par
+\par
+footer \{\par
+    padding: 60px 0 20px;\par
+\par
+    background: var(--dark-green);\par
+\par
+    color: white;\par
+\}\par
+\par
+.footer-logo \{\par
+    color: white;\par
+\par
+    font-family: "Playfair Display", serif;\par
+\par
+    font-size: 25px;\par
+\par
+    font-weight: bold;\par
+\par
+    margin-bottom: 15px;\par
+\}\par
+\par
+.footer-logo i \{\par
+    margin-right: 8px;\par
+\}\par
+\par
+footer p \{\par
+    max-width: 300px;\par
+\par
+    color: #b6c5bd;\par
+\par
+    font-size: 13px;\par
+\par
+    line-height: 1.7;\par
+\}\par
+\par
+footer h5 \{\par
+    color: white;\par
+\par
+    font-family: "Playfair Display", serif;\par
+\par
+    margin-bottom: 20px;\par
+\}\par
+\par
+footer a \{\par
+    display: block;\par
+\par
+    color: #b6c5bd;\par
+\par
+    font-size: 13px;\par
+\par
+    margin-bottom: 10px;\par
+\par
+    transition: 0.3s;\par
+\}\par
+\par
+footer a:hover \{\par
+    color: white;\par
+\par
+    transform: translateX(2px);\par
+\}\par
+\par
+\par
+/* Social icons */\par
+\par
+.social-icons \{\par
+    display: flex;\par
+\par
+    gap: 10px;\par
+\}\par
+\par
+.social-icons a \{\par
+    width: 38px;\par
+    height: 38px;\par
+\par
+    border: 1px solid #5d776b;\par
+\par
+    border-radius: 50%;\par
+\par
+    display: flex;\par
+\par
+    align-items: center;\par
+\par
+    justify-content: center;\par
+\par
+    transition: 0.3s;\par
+\}\par
+\par
+.social-icons a:hover \{\par
+    background: var(--green);\par
+\par
+    border-color: var(--green);\par
+\par
+    transform: translateY(-3px);\par
+\}\par
+\par
+\par
+/* Footer bottom */\par
+\par
+footer hr \{\par
+    border-color: #38584d;\par
+\par
+    margin: 40px 0 20px;\par
+\}\par
+\par
+.footer-bottom \{\par
+    display: flex;\par
+\par
+    justify-content: space-between;\par
+\par
+    align-items: center;\par
+\}\par
+\par
+.footer-bottom p \{\par
+    margin: 0;\par
+\}\par
+\par
+.footer-bottom a \{\par
+    display: inline-block;\par
+\par
+    margin-left: 20px;\par
+\}\par
+\par
+\par
+/* =========================================================\par
+   13. BUTTON EFFECTS\par
+   ========================================================= */\par
+\par
+button \{\par
+    transition:\par
+        background 0.3s ease,\par
+        color 0.3s ease,\par
+        transform 0.3s ease,\par
+        box-shadow 0.3s ease;\par
+\}\par
+\par
+\par
+/* =========================================================\par
+   14. RESPONSIVE - TABLET\par
+   ========================================================= */\par
+\par
+@media (max-width: 991px) \{\par
+\par
+    /* Navbar */\par
+\par
+    .travel-navbar \{\par
+        min-height: auto;\par
+\par
+        padding: 12px 0;\par
+    \}\par
+\par
+    .travel-navbar .container \{\par
+        min-height: auto;\par
+    \}\par
+\par
+    .navbar-nav \{\par
+        gap: 5px;\par
+\par
+        margin-top: 15px;\par
+\par
+        margin-bottom: 10px;\par
+    \}\par
+\par
+    .nav-actions \{\par
+        margin-top: 10px;\par
+\par
+        padding-bottom: 10px;\par
+    \}\par
+\par
+\par
+    /* Hero */\par
+\par
+    .hero \{\par
+        min-height: 620px;\par
+    \}\par
+\par
+    .hero h1 \{\par
+        font-size: 40px;\par
+    \}\par
+\par
+\par
+    /* Search */\par
+\par
+    .trip-search \{\par
+        flex-wrap: wrap;\par
+\par
+        gap: 10px;\par
+\par
+        padding: 20px;\par
+    \}\par
+\par
+    .search-field \{\par
+        min-width: 45%;\par
+    \}\par
+\par
+    .search-divider \{\par
+        display: none;\par
+    \}\par
+\par
+    .find-btn \{\par
+        width: 100%;\par
+\par
+        margin-top: 5px;\par
+    \}\par
+\par
+\par
+    /* Features */\par
+\par
+    .feature-item \{\par
+        border-right: none;\par
+\par
+        margin-bottom: 15px;\par
+    \}\par
+\par
+\par
+    /* About */\par
+\par
+    .about-content \{\par
+        padding-left: 0;\par
+\par
+        margin-top: 50px;\par
+    \}\par
+\par
+\par
+    /* Newsletter */\par
+\par
+    .newsletter-box \{\par
+        display: block;\par
+    \}\par
+\par
+    .newsletter-form \{\par
+        margin-top: 25px;\par
+\par
+        max-width: 450px;\par
+    \}\par
+\}\par
+\par
+\par
+/* =========================================================\par
+   15. RESPONSIVE - MOBILE\par
+   ========================================================= */\par
+\par
+@media (max-width: 576px) \{\par
+\par
+    /* Navbar */\par
+\par
+    .logo-text \{\par
+        font-size: 21px;\par
+    \}\par
+\par
+    .logo-wrapper small \{\par
+        font-size: 7px;\par
+    \}\par
+\par
+    .nav-actions \{\par
+        flex-wrap: wrap;\par
+    \}\par
+\par
+\par
+    /* Hero */\par
+\par
+    .hero \{\par
+        min-height: 680px;\par
+\par
+        background-position: 65% center;\par
+    \}\par
+\par
+    .hero-container \{\par
+        padding-top: 50px;\par
+    \}\par
+\par
+    .hero-small-title \{\par
+        font-size: 22px;\par
+    \}\par
+\par
+    .hero h1 \{\par
+        font-size: 32px;\par
+\par
+        line-height: 1.2;\par
+    \}\par
+\par
+    .hero p \{\par
+        font-size: 14px;\par
+    \}\par
+\par
+\par
+    /* Search */\par
+\par
+    .trip-search \{\par
+        padding: 20px;\par
+\par
+        border-radius: 20px;\par
+    \}\par
+\par
+    .search-field \{\par
+        width: 100%;\par
+\par
+        min-width: 100%;\par
+\par
+        padding: 8px 5px;\par
+    \}\par
+\par
+    .search-field select,\par
+    .search-field input \{\par
+        width: 100%;\par
+    \}\par
+\par
+\par
+    /* Sections */\par
+\par
+    .destinations-section,\par
+    .packages-section \{\par
+        padding: 55px 0;\par
+    \}\par
+\par
+    .section-heading \{\par
+        margin-bottom: 30px;\par
+    \}\par
+\par
+    .section-heading h2 \{\par
+        font-size: 27px;\par
+\par
+        margin: 0 8px;\par
+    \}\par
+\par
+    .section-heading p \{\par
+        padding: 0 15px;\par
+    \}\par
+\par
+\par
+    /* Destination */\par
+\par
+    .destination-card \{\par
+        height: 290px;\par
+    \}\par
+\par
+\par
+    /* About */\par
+\par
+    .about-section \{\par
+        padding: 60px 0;\par
+    \}\par
+\par
+    .memory-image \{\par
+        padding-right: 20px;\par
+    \}\par
+\par
+    .memory-image img \{\par
+        height: 300px;\par
+\par
+        border-radius: 100px 25px 100px 25px;\par
+    \}\par
+\par
+    .photo-note \{\par
+        font-size: 18px;\par
+\par
+        padding: 15px;\par
+    \}\par
+\par
+    .about-content h2 \{\par
+        font-size: 31px;\par
+    \}\par
+\par
+    .about-features \{\par
+        grid-template-columns: repeat(2, 1fr);\par
+\par
+        row-gap: 25px;\par
+    \}\par
+\par
+    .about-features div \{\par
+        border-right: none;\par
+    \}\par
+\par
+\par
+    /* Newsletter */\par
+\par
+    .newsletter \{\par
+        padding: 50px 0;\par
+    \}\par
+\par
+    .newsletter-box \{\par
+        padding: 30px;\par
+\par
+        border-radius: 22px;\par
+    \}\par
+\par
+    .newsletter-box h2 \{\par
+        font-size: 26px;\par
+    \}\par
+\par
+    .newsletter-form \{\par
+        display: block;\par
+\par
+        background: transparent;\par
+\par
+        padding: 0;\par
+    \}\par
+\par
+    .newsletter-form input \{\par
+        width: 100%;\par
+\par
+        margin-bottom: 10px;\par
+\par
+        border-radius: 25px;\par
+    \}\par
+\par
+    .newsletter-form button \{\par
+        width: 100%;\par
+    \}\par
+\par
+\par
+    /* Footer */\par
+\par
+    footer \{\par
+        padding-top: 45px;\par
+    \}\par
+\par
+    .footer-bottom \{\par
+        display: block;\par
+    \}\par
+\par
+    .footer-bottom div \{\par
+        margin-top: 15px;\par
+    \}\par
+\par
+    .footer-bottom a \{\par
+        margin-left: 0;\par
+\par
+        margin-right: 15px;\par
+    \}\par
+\}\par
+\par
+\par
+/* =========================================================\par
+   16. SMALL MOBILE\par
+   ========================================================= */\par
+\par
+@media (max-width: 380px) \{\par
+\par
+    .hero h1 \{\par
+        font-size: 28px;\par
+    \}\par
+\par
+    .hero-small-title \{\par
+        font-size: 20px;\par
+    \}\par
+\par
+    .feature-item \{\par
+        padding-left: 10px;\par
+\par
+        padding-right: 10px;\par
+    \}\par
+\par
+    .section-heading h2 \{\par
+        font-size: 24px;\par
+    \}\par
+\par
+    .about-features \{\par
+        grid-template-columns: 1fr 1fr;\par
+    \}\par
+\par
+\}\par
+}
+ 

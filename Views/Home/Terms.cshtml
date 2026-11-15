@@ -1,0 +1,178 @@
+@{
+    ViewData["Title"] = "Terms & Conditions";
+}
+
+<div class="py-5" style="background: var(--cream);">
+    <div class="container">
+        
+        <div class="card border-0 shadow-sm rounded-4 mb-4 overflow-hidden" style="background: linear-gradient(135deg, var(--dark-green) 0%, #155e45 100%); color: white;">
+            <div class="card-body p-4 p-md-5">
+                <div class="d-flex align-items-center gap-2 mb-2">
+                    <span class="badge rounded-pill" style="background: rgba(255,255,255,0.2);">
+                        <i class="bi bi-file-earmark-text-fill me-1"></i> Traveler Agreement
+                    </span>
+                    <small class="text-white-50">Effective: October 2026</small>
+                </div>
+                <h1 class="display-6 fw-bold mb-3" style="font-family: 'Playfair Display', serif;">Terms & Conditions</h1>
+                <p class="lead mb-0 text-white-50" style="max-width: 750px;">
+                    Please review these terms carefully before booking your travel package. By using Nomadic, you agree to comply with and be bound by the following policies.
+                </p>
+            </div>
+        </div>
+
+        <div class="row g-4">
+            
+            <div class="col-lg-3">
+                <div class="card border-0 shadow-sm rounded-4 sticky-top" style="top: 90px;">
+                    <div class="card-body p-4">
+                        <h6 class="fw-bold mb-3 text-uppercase small text-muted">Table of Contents</h6>
+                        <ul class="nav flex-column gap-2 small">
+                            <li class="nav-item">
+                                <a class="nav-link p-0 text-success fw-medium" href="#agreement">1. Agreement to Terms</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link p-0 text-success fw-medium" href="#pricing">2. Pricing & Currency</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link p-0 text-success fw-medium" href="#demo-payments">3. Demo Payment Flow</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link p-0 text-success fw-medium" href="#cancellation">4. Cancellation & Refunds</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link p-0 text-success fw-medium" href="#responsibilities">5. Traveler Obligations</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link p-0 text-success fw-medium" href="#force-majeure">6. Force Majeure & Itineraries</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link p-0 text-success fw-medium" href="#liability">7. Limitation of Liability</a>
+                            </li>
+                        </ul>
+
+                        <hr class="my-4" />
+
+                        <div class="d-grid gap-2">
+                            <a asp-controller="Home" asp-action="Index" class="btn btn-outline-success btn-sm rounded-pill">
+                                <i class="bi bi-arrow-left me-1"></i> Back to Home
+                            </a>
+                            <a asp-controller="Home" asp-action="Privacy" class="btn btn-outline-secondary btn-sm rounded-pill">
+                                Privacy Policy
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            
+            <div class="col-lg-9">
+                <div class="card border-0 shadow-sm rounded-4 p-4 p-md-5 bg-white">
+                    <section id="agreement" class="mb-5">
+                        <h3 class="fw-bold text-success mb-3" style="font-family: 'Playfair Display', serif;">1. Agreement to Terms</h3>
+                        <p class="text-muted leading-relaxed">
+                            These Terms and Conditions constitute a legally binding agreement made between you, whether personally or on behalf of an entity ("you", "traveler") and <strong>Nomadic – Personalized Travel</strong> ("Nomadic", "we", "us", or "our"), concerning your access to and use of our personalized travel website, itineraries, and booking services.
+                        </p>
+                    </section>
+
+                    <section id="pricing" class="mb-5">
+                        <h3 class="fw-bold text-success mb-3" style="font-family: 'Playfair Display', serif;">2. Pricing, Inclusions & INR Currency</h3>
+                        <p class="text-muted">
+                            All package rates, starting prices, and booking totals displayed across the Nomadic platform are listed in <strong>Indian Rupees (INR - ₹)</strong> unless explicitly stated otherwise.
+                        </p>
+                        <ul class="text-muted small lh-lg">
+                            <li><strong>Dynamic Bill Calculation:</strong> Package prices are multiplied by the number of selected travelers, plus standard applicable government tourism taxes and service fees (5% GST).</li>
+                            <li><strong>Explicit Inclusions & Exclusions:</strong> Each package details exact hotel nights, meals, guided excursions, transfers, and admission tickets. Items not listed in "Inclusions" (such as visa charges, personal shopping, and optional extreme activities) remain the sole responsibility of the traveler.</li>
+                        </ul>
+                    </section>
+
+                    <section id="demo-payments" class="mb-5">
+                        <h3 class="fw-bold text-success mb-3" style="font-family: 'Playfair Display', serif;">3. Demo Payment Flow & Simulation</h3>
+                        <div class="alert alert-warning border-0 p-3 rounded-3 text-dark small">
+                            <i class="bi bi-exclamation-triangle-fill text-warning me-2"></i>
+                            <strong>Demonstration Mode:</strong> The payment and checkout flow on this website is strictly for demonstration and testing purposes. No real bank accounts or payment cards will be charged. Do not input genuine confidential financial PINs or real CVVs.
+                        </div>
+                        <p class="text-muted small">
+                            Once you complete the demo checkout, a unique Booking Reference ID (e.g., <code>NOM-2026-XXXXX</code>) will be generated, and your mock reservation summary will be saved in our system.
+                        </p>
+                    </section>
+
+                    <section id="cancellation" class="mb-5">
+                        <h3 class="fw-bold text-success mb-3" style="font-family: 'Playfair Display', serif;">4. Cancellation, Alterations & Refund Policy</h3>
+                        <p class="text-muted">
+                            We recognize that travel schedules can encounter unexpected changes. The standard cancellation timeline for our packages is as follows:
+                        </p>
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-sm small text-muted">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Cancellation Timeline</th>
+                                        <th>Refund Percentage</th>
+                                        <th>Administrative Fee</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>30+ days prior to travel date</td>
+                                        <td>90% of package cost</td>
+                                        <td>₹1,500 per booking</td>
+                                    </tr>
+                                    <tr>
+                                        <td>15 to 29 days prior to travel date</td>
+                                        <td>60% of package cost</td>
+                                        <td>₹2,500 per booking</td>
+                                    </tr>
+                                    <tr>
+                                        <td>7 to 14 days prior to travel date</td>
+                                        <td>30% of package cost</td>
+                                        <td>₹5,000 per booking</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Less than 7 days or No-Show</td>
+                                        <td>Non-refundable (0%)</td>
+                                        <td>Full package forfeited</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <small class="text-muted d-block mt-2">
+                            *Approved refunds are disbursed to the original mode of payment within 5 to 7 business banking days.
+                        </small>
+                    </section>
+
+                    <section id="responsibilities" class="mb-5">
+                        <h3 class="fw-bold text-success mb-3" style="font-family: 'Playfair Display', serif;">5. Traveler Obligations & Travel Documents</h3>
+                        <p class="text-muted">Travelers must ensure that:</p>
+                        <ul class="text-muted small lh-lg">
+                            <li>Passports possess at least <strong>6 months of remaining validity</strong> beyond the scheduled return date for international trips (e.g. Bali, Switzerland, Paris, Dubai, Tokyo, Rome, etc.).</li>
+                            <li>Appropriate tourist visas, entry permits, transit documents, and health vaccinations are obtained in advance.</li>
+                            <li>Travelers arrive at designated tour meeting points, airports, or train stations on time. Missing transfers due to traveler delay cannot be reimbursed.</li>
+                        </ul>
+                    </section>
+
+                    <section id="force-majeure" class="mb-5">
+                        <h3 class="fw-bold text-success mb-3" style="font-family: 'Playfair Display', serif;">6. Force Majeure & Itinerary Modifications</h3>
+                        <p class="text-muted">
+                            Nomadic reserves the right to make minor adjustments to daily schedules, sightseeing sequences, or hotel properties in case of weather anomalies, volcanic activity, road blockages, strikes, or government restrictions. In such events, alternative activities of equivalent value and comfort will be provided.
+                        </p>
+                    </section>
+
+                    <section id="liability" class="mb-5">
+                        <h3 class="fw-bold text-success mb-3" style="font-family: 'Playfair Display', serif;">7. Limitation of Liability</h3>
+                        <p class="text-muted">
+                            Nomadic acts as an organizer and booking facilitator for certified airlines, hotels, vehicle fleets, and tour guides. We cannot be held liable for personal injuries, luggage losses, delays, or property damage caused by independent third-party carriers or extreme natural circumstances beyond our reasonable control. We strongly advise all guests to procure comprehensive travel insurance.
+                        </p>
+                    </section>
+
+                    <div class="pt-4 border-top text-center">
+                        <a asp-controller="Home" asp-action="Index" class="btn btn-outline-success px-4 rounded-pill me-2">
+                            ← Return to Website
+                        </a>
+                        <a asp-controller="Packages" asp-action="Index" class="btn btn-success px-4 rounded-pill">
+                            Explore Travel Packages →
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

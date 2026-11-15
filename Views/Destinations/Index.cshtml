@@ -1,0 +1,130 @@
+@model IEnumerable<Nomadic.Models.Destination>
+@{
+    ViewData["Title"] = "Destinations - 20 Handpicked Travel Spots";
+    var activeCat = (ViewBag.ActiveCategory as string) ?? "All";
+    var totalCount = Model.Count();
+    var indianCount = Model.Count(d => d.Category == "Indian");
+    var intlCount = Model.Count(d => d.Category == "International");
+}
+
+<div class="py-5" style="background: var(--cream);">
+    <div class="container">
+        
+        <div class="text-center mb-5">
+            <span class="badge bg-success-subtle text-success border border-success-subtle rounded-pill px-3 py-2 mb-2 fw-semibold">
+                <i class="bi bi-compass-fill me-1"></i> World-Class Travel Destinations
+            </span>
+            <h1 class="display-5 fw-bold text-dark mt-2" style="font-family: 'Playfair Display', serif;">
+                Explore Our 20 Featured Destinations
+            </h1>
+            <p class="text-muted mx-auto" style="max-width: 650px;">
+                Handpicked Indian and international getaways tailored for authentic memories. Discover breathtaking landscapes, vibrant cultures, and customized packages.
+            </p>
+
+            
+            <div class="d-flex justify-content-center gap-2 mt-4 flex-wrap">
+                <a asp-action="Index" asp-route-category="All"
+                   class="btn @(activeCat == "All" ? "btn-success" : "btn-outline-success") rounded-pill px-4">
+                    All Destinations (@(activeCat == "All" ? totalCount : 20))
+                </a>
+                <a asp-action="Index" asp-route-category="Indian"
+                   class="btn @(activeCat == "Indian" ? "btn-success" : "btn-outline-success") rounded-pill px-4">
+                    <i class="bi bi-flag-fill me-1"></i> India (@(activeCat == "Indian" ? totalCount : 10))
+                </a>
+                <a asp-action="Index" asp-route-category="International"
+                   class="btn @(activeCat == "International" ? "btn-success" : "btn-outline-success") rounded-pill px-4">
+                    <i class="bi bi-globe me-1"></i> International (@(activeCat == "International" ? totalCount : 10))
+                </a>
+            </div>
+        </div>
+
+        
+        <div class="row g-4">
+            @foreach (var dest in Model)
+            {
+                <div class="col-xl-3 col-lg-4 col-md-6">
+                    <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden destination-full-card">
+                        <div class="position-relative overflow-hidden" style="height: 220px;">
+                            <img src="@dest.ImageUrl"
+                                 alt="@dest.Name"
+                                 class="w-100 h-100 object-fit-cover dest-img-hover"
+                                 loading="lazy" />
+                            <div class="position-absolute top-0 start-0 m-3 d-flex gap-2">
+                                <span class="badge @(dest.Category == "Indian" ? "bg-warning text-dark" : "bg-info text-dark") fw-semibold rounded-pill px-3 py-1 shadow-sm">
+                                    @(dest.Category == "Indian" ? "India" : "International")
+                                </span>
+                            </div>
+                            <div class="position-absolute bottom-0 end-0 m-3">
+                                <span class="badge bg-dark bg-opacity-75 text-white rounded-pill px-3 py-2 shadow-sm">
+                                    <i class="bi bi-clock me-1"></i> @dest.Duration
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="card-body p-4 d-flex flex-column">
+                            <div class="d-flex align-items-center text-success small mb-1">
+                                <i class="bi bi-geo-alt-fill me-1"></i>
+                                <span class="fw-medium">@dest.Location</span>
+                            </div>
+
+                            <h3 class="h4 card-title fw-bold text-dark mb-2" style="font-family: 'Playfair Display', serif;">
+                                @dest.Name
+                            </h3>
+
+                            <p class="card-text text-muted small flex-grow-1 line-clamp-3 mb-3" style="line-height: 1.6;">
+                                @dest.ShortDescription
+                            </p>
+
+                            <div class="border-top pt-3 mt-auto">
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <div>
+                                        <small class="text-muted d-block" style="font-size: 11px;">Starting Price</small>
+                                        <strong class="text-success fs-5">@dest.FormattedPrice</strong>
+                                    </div>
+                                    <span class="badge bg-success-subtle text-success border border-success-subtle rounded-pill px-2 py-1 small">
+                                        Per Person
+                                    </span>
+                                </div>
+
+                                <a asp-controller="Packages"
+                                   asp-action="Index"
+                                   asp-route-destination="@dest.Name"
+                                   class="btn btn-success w-100 rounded-pill py-2 fw-medium shadow-sm"
+                                   title="View packages for @dest.Name">
+                                    View Packages <i class="bi bi-arrow-right ms-1"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+
+        
+        <div class="text-center mt-5">
+            <a asp-controller="Home" asp-action="Index" class="btn btn-outline-success px-4 py-2 rounded-pill me-2">
+                ← Back to Home
+            </a>
+            <a asp-controller="Packages" asp-action="Index" class="btn btn-success px-4 py-2 rounded-pill">
+                Browse All Packages
+            </a>
+        </div>
+    </div>
+</div>
+
+<style>
+    .dest-img-hover {
+        transition: transform 0.5s ease;
+    }
+    .destination-full-card:hover .dest-img-hover {
+        transform: scale(1.08);
+    }
+    .destination-full-card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        background: white;
+    }
+    .destination-full-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 28px rgba(7, 59, 45, 0.12) !important;
+    }
+</style>

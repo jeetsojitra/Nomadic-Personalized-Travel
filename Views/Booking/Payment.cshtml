@@ -1,0 +1,813 @@
+@model Nomadic.Models.PaymentViewModel
+@{
+    ViewData["Title"] = "Checkout & Payment - " + Model.PackageName;
+}
+
+<div class="py-5" style="background: var(--cream);">
+    <div class="container">
+        
+        <div class="row justify-content-center mb-5">
+            <div class="col-md-8">
+                <div class="d-flex justify-content-between position-relative">
+                    <div class="position-absolute top-50 start-0 translate-middle-y w-100" style="height: 3px; background: #dfe5dc; z-index: 1;"></div>
+                    <div class="position-absolute top-50 start-0 translate-middle-y" style="height: 3px; background: var(--green); width: 66%; z-index: 1;"></div>
+
+                    <div class="position-relative text-center" style="z-index: 2;">
+                        <div class="rounded-circle d-flex align-items-center justify-content-center mx-auto mb-1 text-white bg-success fw-bold" style="width: 38px; height: 38px;">
+                            <i class="bi bi-check-lg"></i>
+                        </div>
+                        <small class="fw-bold text-success">Select Package</small>
+                    </div>
+
+                    <div class="position-relative text-center" style="z-index: 2;">
+                        <div class="rounded-circle d-flex align-items-center justify-content-center mx-auto mb-1 text-white bg-success fw-bold" style="width: 38px; height: 38px;">
+                            2
+                        </div>
+                        <small class="fw-bold text-success">Details & Payment</small>
+                    </div>
+
+                    <div class="position-relative text-center" style="z-index: 2;">
+                        <div class="rounded-circle d-flex align-items-center justify-content-center mx-auto mb-1 text-muted bg-white border border-2 fw-bold" style="width: 38px; height: 38px;">
+                            3
+                        </div>
+                        <small class="text-muted">Confirmation</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-4">
+            
+            <div class="col-lg-7">
+                <form asp-controller="Booking" asp-action="Confirm" method="post" id="paymentForm">
+                    @Html.AntiForgeryToken()
+
+                    <input type="hidden" asp-for="PackageId" />
+                    <input type="hidden" asp-for="PackageName" />
+                    <input type="hidden" asp-for="Destination" />
+                    <input type="hidden" asp-for="PackagePrice" id="basePackagePrice" value="@Model.PackagePrice" />
+                    <input type="hidden" asp-for="ImageUrl" />
+                    <input type="hidden" asp-for="Duration" />
+                    <input type="hidden" asp-for="UpiApp" id="selectedUpiApp" value="Google Pay" />
+                    <input type="hidden" asp-for="SelectedBank" id="selectedBankInput" value="HDFC Bank" />
+                    <input type="hidden" asp-for="BankAccountType" id="selectedAccountType" value="Retail" />
+
+                    @if (!ViewData.ModelState.IsValid)
+                    {
+                        <div class="alert alert-danger rounded-4 p-3 mb-4 shadow-sm">
+                            <h6 class="fw-bold"><i class="bi bi-exclamation-triangle-fill me-1"></i> Please correct the following:</h6>
+                            <div asp-validation-summary="All" class="text-danger small mb-0"></div>
+                        </div>
+                    }
+
+                    
+                    <div class="card border-0 shadow-sm rounded-4 p-4 p-md-5 mb-4 bg-white">
+                        <div class="d-flex align-items-center gap-2 mb-4">
+                            <span class="badge bg-success rounded-circle p-2" style="width: 28px; height: 28px; display: inline-flex; align-items: center; justify-content: center;">1</span>
+                            <h4 class="fw-bold text-dark mb-0" style="font-family: 'Playfair Display', serif;">Trip Schedule & Travelers</h4>
+                        </div>
+
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label asp-for="TravelDate" class="form-label small fw-bold text-muted">Departure / Travel Date *</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-light border-end-0"><i class="bi bi-calendar-event text-success"></i></span>
+                                    <input asp-for="TravelDate" class="form-control border-start-0" type="date" min="@DateTime.Today.AddDays(1).ToString("yyyy-MM-dd")" required />
+                                </div>
+                                <span asp-validation-for="TravelDate" class="text-danger small"></span>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label asp-for="TravelersCount" class="form-label small fw-bold text-muted">Number of Travelers *</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-light border-end-0"><i class="bi bi-people-fill text-success"></i></span>
+                                    <select asp-for="TravelersCount" id="travelersCountSelect" class="form-select border-start-0" required>
+                                        @for (int i = 1; i <= 10; i++)
+                                        {
+                                            <option value="@i" selected="@(i == Model.TravelersCount)">@i Traveler@(i > 1 ? "s" : "")</option>
+                                        }
+                                    </select>
+                                </div>
+                                <span asp-validation-for="TravelersCount" class="text-danger small"></span>
+                                <small class="text-muted">Total amount updates dynamically</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card border-0 shadow-sm rounded-4 p-4 p-md-5 mb-4 bg-white">
+                        <div class="d-flex align-items-center gap-2 mb-4">
+                            <span class="badge bg-success rounded-circle p-2" style="width: 28px; height: 28px; display: inline-flex; align-items: center; justify-content: center;">2</span>
+                            <h4 class="fw-bold text-dark mb-0" style="font-family: 'Playfair Display', serif;">Customer & Traveler Details</h4>
+                        </div>
+
+                        <div class="row g-3">
+                            <div class="col-md-12">
+                                <label asp-for="CustomerName" class="form-label small fw-bold text-muted">Full Name (As on Passport / ID) *</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-light border-end-0"><i class="bi bi-person text-success"></i></span>
+                                    <input asp-for="CustomerName" class="form-control border-start-0" placeholder="e.g. John Doe" required />
+                                </div>
+                                <span asp-validation-for="CustomerName" class="text-danger small"></span>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label asp-for="CustomerEmail" class="form-label small fw-bold text-muted">Email Address (For Vouchers) *</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-light border-end-0"><i class="bi bi-envelope text-success"></i></span>
+                                    <input asp-for="CustomerEmail" type="email" class="form-control border-start-0" placeholder="john.doe@example.com" required />
+                                </div>
+                                <span asp-validation-for="CustomerEmail" class="text-danger small"></span>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label asp-for="CustomerPhone" class="form-label small fw-bold text-muted">Mobile Phone Number *</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-light border-end-0"><i class="bi bi-telephone text-success"></i></span>
+                                    <input asp-for="CustomerPhone" type="tel" class="form-control border-start-0" placeholder="+91 98765 43210" required />
+                                </div>
+                                <span asp-validation-for="CustomerPhone" class="text-danger small"></span>
+                            </div>
+
+                            <div class="col-md-12">
+                                <label asp-for="CustomerAddress" class="form-label small fw-bold text-muted">City / Billing Address *</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-light border-end-0"><i class="bi bi-geo text-success"></i></span>
+                                    <input asp-for="CustomerAddress" class="form-control border-start-0" placeholder="Mumbai, Maharashtra, India" required />
+                                </div>
+                                <span asp-validation-for="CustomerAddress" class="text-danger small"></span>
+                            </div>
+
+                            <div class="col-md-12">
+                                <label asp-for="SpecialRequests" class="form-label small fw-bold text-muted">Special Requests / Preferences (Optional)</label>
+                                <textarea asp-for="SpecialRequests" class="form-control" rows="2" placeholder="Dietary restrictions, anniversary cake, airport meet & assist, etc."></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card border-0 shadow-sm rounded-4 p-4 p-md-5 mb-4 bg-white">
+
+                        
+                        <div class="row g-3 mb-4">
+                            
+                            <div class="col-md-6 col-sm-6">
+                                <label class="payment-method-card card p-3 h-100 border text-center cursor-pointer active" id="cardMethodLabel">
+                                    <input type="radio" asp-for="PaymentMethod" value="Credit / Debit Card" checked class="form-check-input d-none" id="methodCard" />
+                                    <i class="bi bi-credit-card-2-back fs-3 text-success d-block mb-1"></i>
+                                    <strong class="d-block small text-dark">Credit / Debit Card</strong>
+                                    <small class="text-muted">Visa, Mastercard, RuPay</small>
+                                </label>
+                            </div>
+
+                            
+                            <div class="col-md-6 col-sm-6">
+                                <label class="payment-method-card card p-3 h-100 border text-center cursor-pointer" id="upiMethodLabel">
+                                    <input type="radio" asp-for="PaymentMethod" value="UPI / QR Code" class="form-check-input d-none" id="methodUpi" />
+                                    <div class="position-relative d-inline-block">
+                                        <i class="bi bi-qr-code-scan fs-3 text-success d-block mb-1"></i>
+                                    </div>
+                                    <strong class="d-block small text-dark">UPI / Instant QR</strong>
+                                    <small class="text-muted">GPay, PhonePe, Paytm, QR</small>
+                                </label>
+                            </div>
+
+                            
+                            <div class="col-md-6 col-sm-6">
+                                <label class="payment-method-card card p-3 h-100 border text-center cursor-pointer" id="netBankingMethodLabel">
+                                    <input type="radio" asp-for="PaymentMethod" value="Net Banking" class="form-check-input d-none" id="methodNetBanking" />
+                                    <div class="position-relative d-inline-block">
+                                        <i class="bi bi-bank fs-3 text-success d-block mb-1"></i>
+                                    </div>
+                                    <strong class="d-block small text-dark">Net Banking</strong>
+                                    <small class="text-muted">All Major Indian Banks</small>
+                                </label>
+                            </div>
+
+                            
+                            <div class="col-md-6 col-sm-6">
+                                <label class="payment-method-card card p-3 h-100 border text-center cursor-pointer" id="walletMethodLabel">
+                                    <input type="radio" asp-for="PaymentMethod" value="Nomadic Travel Valet & Wallet" class="form-check-input d-none" id="methodWallet" />
+                                    <div class="position-relative d-inline-block">
+                                        <i class="bi bi-wallet2 fs-3 text-success d-block mb-1"></i>
+                                    </div>
+                                    <strong class="d-block small text-dark">Travel Valet & Wallet</strong>
+                                    <small class="text-muted">Nomadic VIP Balance</small>
+                                </label>
+                            </div>
+                        </div>
+
+                        
+                        <div id="cardFieldsWrapper" class="payment-fields-panel p-4 rounded-4 bg-light border mb-4">
+                            <h6 class="fw-bold text-dark mb-3"><i class="bi bi-credit-card me-2 text-success"></i> Credit or Debit Card</h6>
+                            <div class="row g-3">
+                                <div class="col-12">
+                                    <label class="form-label small text-muted">Card Number (Demo prefilled)</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-white"><i class="bi bi-credit-card text-muted"></i></span>
+                                        <input type="text" class="form-control bg-white" value="4532 •••• •••• 8892" readonly />
+                                        <span class="input-group-text bg-white text-success small"><i class="bi bi-check-circle-fill me-1"></i> Visa Platinum</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label small text-muted">Cardholder Name</label>
+                                    <input type="text" class="form-control bg-white" value="NOMADIC TRAVELER" readonly />
+                                </div>
+                                <div class="col-md-3 col-6">
+                                    <label class="form-label small text-muted">Expiry Date</label>
+                                    <input type="text" class="form-control bg-white" value="10/29" readonly />
+                                </div>
+                                <div class="col-md-3 col-6">
+                                    <label class="form-label small text-muted">CVV / CVC</label>
+                                    <input type="password" class="form-control bg-white" value="•••" readonly />
+                                </div>
+                            </div>
+                        </div>
+
+                        
+                        <div id="upiFieldsWrapper" class="payment-fields-panel p-4 rounded-4 bg-light border mb-4" style="display: none;">
+                            <div class="d-flex align-items-center justify-content-between mb-3 flex-wrap gap-2">
+                                <h6 class="fw-bold text-dark mb-0">
+                                    <i class="bi bi-qr-code-scan me-2 text-success"></i> Scan & Pay with Any UPI App
+                                </h6>
+                                <span class="badge bg-success-subtle text-success border border-success-subtle rounded-pill px-3 py-1 small">
+                                </span>
+                            </div>
+
+                            <div class="row g-4 align-items-center">
+                                
+                                <div class="col-md-5 text-center">
+                                    <div class="p-3 bg-white rounded-4 border shadow-sm d-inline-block position-relative">
+                                        
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="170" height="170" class="d-block mx-auto">
+                                            
+                                            <rect width="200" height="200" fill="#ffffff" />
+                                            
+                                            <rect x="15" y="15" width="45" height="45" rx="6" fill="#073b2d" />
+                                            <rect x="23" y="23" width="29" height="29" rx="3" fill="#ffffff" />
+                                            <rect x="29" y="29" width="17" height="17" rx="2" fill="#073b2d" />
+
+                                            <rect x="140" y="15" width="45" height="45" rx="6" fill="#073b2d" />
+                                            <rect x="148" y="23" width="29" height="29" rx="3" fill="#ffffff" />
+                                            <rect x="154" y="29" width="17" height="17" rx="2" fill="#073b2d" />
+
+                                            <rect x="15" y="140" width="45" height="45" rx="6" fill="#073b2d" />
+                                            <rect x="23" y="148" width="29" height="29" rx="3" fill="#ffffff" />
+                                            <rect x="29" y="154" width="17" height="17" rx="2" fill="#073b2d" />
+
+                                            
+                                            <rect x="70" y="20" width="10" height="10" fill="#073b2d" />
+                                            <rect x="90" y="20" width="10" height="10" fill="#073b2d" />
+                                            <rect x="110" y="20" width="10" height="10" fill="#073b2d" />
+                                            <rect x="80" y="35" width="10" height="10" fill="#073b2d" />
+                                            <rect x="100" y="35" width="10" height="10" fill="#073b2d" />
+                                            <rect x="120" y="35" width="10" height="10" fill="#073b2d" />
+
+                                            <rect x="20" y="70" width="10" height="10" fill="#073b2d" />
+                                            <rect x="40" y="70" width="10" height="10" fill="#073b2d" />
+                                            <rect x="70" y="70" width="10" height="10" fill="#3e7d35" />
+                                            <rect x="90" y="70" width="10" height="10" fill="#073b2d" />
+                                            <rect x="110" y="70" width="10" height="10" fill="#3e7d35" />
+                                            <rect x="130" y="70" width="10" height="10" fill="#073b2d" />
+                                            <rect x="150" y="70" width="10" height="10" fill="#073b2d" />
+                                            <rect x="170" y="70" width="10" height="10" fill="#073b2d" />
+
+                                            <rect x="30" y="90" width="10" height="10" fill="#073b2d" />
+                                            <rect x="50" y="90" width="10" height="10" fill="#073b2d" />
+                                            <rect x="70" y="90" width="10" height="10" fill="#073b2d" />
+                                            
+                                            <circle cx="100" cy="100" r="16" fill="#073b2d" />
+                                            <circle cx="100" cy="100" r="13" fill="#ffffff" />
+                                            <text x="100" y="106" font-family="'Playfair Display', serif" font-weight="900" font-size="14" fill="#073b2d" text-anchor="middle">N</text>
+
+                                            <rect x="130" y="90" width="10" height="10" fill="#073b2d" />
+                                            <rect x="150" y="90" width="10" height="10" fill="#073b2d" />
+
+                                            <rect x="70" y="110" width="10" height="10" fill="#073b2d" />
+                                            <rect x="90" y="125" width="10" height="10" fill="#073b2d" />
+                                            <rect x="110" y="110" width="10" height="10" fill="#073b2d" />
+                                            <rect x="130" y="110" width="10" height="10" fill="#3e7d35" />
+
+                                            <rect x="70" y="140" width="10" height="10" fill="#073b2d" />
+                                            <rect x="90" y="140" width="10" height="10" fill="#073b2d" />
+                                            <rect x="110" y="140" width="10" height="10" fill="#073b2d" />
+                                            <rect x="130" y="140" width="10" height="10" fill="#073b2d" />
+                                            <rect x="150" y="140" width="10" height="10" fill="#073b2d" />
+                                            <rect x="170" y="140" width="10" height="10" fill="#073b2d" />
+
+                                            <rect x="80" y="160" width="10" height="10" fill="#073b2d" />
+                                            <rect x="100" y="160" width="10" height="10" fill="#3e7d35" />
+                                            <rect x="120" y="160" width="10" height="10" fill="#073b2d" />
+                                            <rect x="140" y="160" width="10" height="10" fill="#073b2d" />
+                                            <rect x="160" y="160" width="10" height="10" fill="#073b2d" />
+
+                                            <rect x="70" y="175" width="10" height="10" fill="#073b2d" />
+                                            <rect x="110" y="175" width="10" height="10" fill="#073b2d" />
+                                            <rect x="150" y="175" width="10" height="10" fill="#073b2d" />
+                                            <rect x="170" y="175" width="10" height="10" fill="#073b2d" />
+                                        </svg>
+
+                                        <div class="mt-2 text-center">
+                                            <span class="badge bg-dark rounded-pill px-3 py-1 font-monospace" id="qrAmountBadge">
+                                                ₹@Model.TotalAmount.ToString("N0")
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <small class="text-muted d-block mt-2">Scan using PhonePe, GPay, Paytm, or Cred</small>
+                                </div>
+
+                                
+                                <div class="col-md-7">
+                                    <label class="form-label small fw-bold text-muted mb-2">Or Choose Your Preferred UPI App:</label>
+                                    <div class="row g-2 mb-3">
+                                        <div class="col-6">
+                                            <button type="button" class="btn btn-outline-success w-100 text-start d-flex align-items-center gap-2 rounded-3 p-2 upi-app-btn active" data-app="Google Pay">
+                                                <i class="bi bi-google text-primary fs-5"></i>
+                                                <span class="small fw-bold">Google Pay</span>
+                                            </button>
+                                        </div>
+                                        <div class="col-6">
+                                            <button type="button" class="btn btn-outline-success w-100 text-start d-flex align-items-center gap-2 rounded-3 p-2 upi-app-btn" data-app="PhonePe">
+                                                <i class="bi bi-phone text-purple fs-5"></i>
+                                                <span class="small fw-bold">PhonePe</span>
+                                            </button>
+                                        </div>
+                                        <div class="col-6">
+                                            <button type="button" class="btn btn-outline-success w-100 text-start d-flex align-items-center gap-2 rounded-3 p-2 upi-app-btn" data-app="Paytm">
+                                                <i class="bi bi-wallet-fill text-info fs-5"></i>
+                                                <span class="small fw-bold">Paytm UPI</span>
+                                            </button>
+                                        </div>
+                                        <div class="col-6">
+                                            <button type="button" class="btn btn-outline-success w-100 text-start d-flex align-items-center gap-2 rounded-3 p-2 upi-app-btn" data-app="BHIM UPI">
+                                                <i class="bi bi-lightning-charge-fill text-warning fs-5"></i>
+                                                <span class="small fw-bold">BHIM UPI</span>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <label class="form-label small fw-bold text-muted">Merchant UPI ID (Verified):</label>
+                                    <div class="input-group mb-2">
+                                        <input type="text" class="form-control bg-white font-monospace small" id="merchantUpiId" value="nomadic.travel@icici" readonly />
+                                        <button class="btn btn-outline-success" type="button" id="copyUpiBtn">
+                                            <i class="bi bi-clipboard me-1"></i> Copy
+                                        </button>
+                                    </div>
+                                    <div id="copySuccessMsg" class="text-success small fw-semibold" style="display: none;">
+                                        <i class="bi bi-check2-circle me-1"></i> UPI ID copied to clipboard!
+                                    </div>
+
+                                    <div class="mt-3 p-2 rounded-3 bg-white border small text-muted">
+                                        <i class="bi bi-shield-check text-success me-1"></i> <strong>Zero Waiting:</strong> Clicking "Confirm Payment" below instantly authorizes your simulated UPI booking.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        
+                        <div id="netBankingFieldsWrapper" class="payment-fields-panel p-4 rounded-4 bg-light border mb-4" style="display: none;">
+                            <div class="d-flex align-items-center justify-content-between mb-3 flex-wrap gap-2">
+                                <h6 class="fw-bold text-dark mb-0">
+                                    <i class="bi bi-bank me-2 text-success"></i> Select Bank for Direct Net Banking
+                                </h6>
+                                <span class="badge bg-primary-subtle text-primary border border-primary-subtle rounded-pill px-3 py-1 small">
+                                    All Indian Banks Supported
+                                </span>
+                            </div>
+
+                            <label class="form-label small fw-bold text-muted mb-2">Popular Indian Banks:</label>
+                            <div class="row g-2 mb-3" id="popularBanksGrid">
+                                <div class="col-md-4 col-sm-6">
+                                    <div class="bank-pill-card p-3 rounded-3 border bg-white text-center cursor-pointer active" data-bank="HDFC Bank">
+                                        <i class="bi bi-building fs-4 text-primary d-block mb-1"></i>
+                                        <strong class="small d-block text-dark">HDFC Bank</strong>
+                                        <span class="badge bg-success-subtle text-success" style="font-size: 9px;"><i class="bi bi-check2"></i> Active</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 col-sm-6">
+                                    <div class="bank-pill-card p-3 rounded-3 border bg-white text-center cursor-pointer" data-bank="ICICI Bank">
+                                        <i class="bi bi-building fs-4 text-danger d-block mb-1"></i>
+                                        <strong class="small d-block text-dark">ICICI Bank</strong>
+                                        <span class="badge bg-light text-muted" style="font-size: 9px;">Direct Gateway</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 col-sm-6">
+                                    <div class="bank-pill-card p-3 rounded-3 border bg-white text-center cursor-pointer" data-bank="State Bank of India (SBI)">
+                                        <i class="bi bi-building fs-4 text-info d-block mb-1"></i>
+                                        <strong class="small d-block text-dark">SBI Bank</strong>
+                                        <span class="badge bg-light text-muted" style="font-size: 9px;">Direct Gateway</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 col-sm-6">
+                                    <div class="bank-pill-card p-3 rounded-3 border bg-white text-center cursor-pointer" data-bank="Axis Bank">
+                                        <i class="bi bi-building fs-4 text-danger d-block mb-1"></i>
+                                        <strong class="small d-block text-dark">Axis Bank</strong>
+                                        <span class="badge bg-light text-muted" style="font-size: 9px;">Direct Gateway</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 col-sm-6">
+                                    <div class="bank-pill-card p-3 rounded-3 border bg-white text-center cursor-pointer" data-bank="Kotak Mahindra Bank">
+                                        <i class="bi bi-building fs-4 text-danger d-block mb-1"></i>
+                                        <strong class="small d-block text-dark">Kotak Bank</strong>
+                                        <span class="badge bg-light text-muted" style="font-size: 9px;">Direct Gateway</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 col-sm-6">
+                                    <div class="bank-pill-card p-3 rounded-3 border bg-white text-center cursor-pointer" data-bank="Punjab National Bank (PNB)">
+                                        <i class="bi bi-building fs-4 text-warning d-block mb-1"></i>
+                                        <strong class="small d-block text-dark">PNB Bank</strong>
+                                        <span class="badge bg-light text-muted" style="font-size: 9px;">Direct Gateway</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <label class="form-label small fw-bold text-muted mb-2">Or Choose Any Other Indian Bank:</label>
+                            <div class="mb-3">
+                                <select class="form-select bg-white" id="allBanksDropdown">
+                                    <option value="HDFC Bank" selected>HDFC Bank (Selected)</option>
+                                    <option value="ICICI Bank">ICICI Bank</option>
+                                    <option value="State Bank of India (SBI)">State Bank of India (SBI)</option>
+                                    <option value="Axis Bank">Axis Bank</option>
+                                    <option value="Kotak Mahindra Bank">Kotak Mahindra Bank</option>
+                                    <option value="Punjab National Bank (PNB)">Punjab National Bank (PNB)</option>
+                                    <option value="Bank of Baroda">Bank of Baroda</option>
+                                    <option value="Canara Bank">Canara Bank</option>
+                                    <option value="IndusInd Bank">IndusInd Bank</option>
+                                    <option value="Union Bank of India">Union Bank of India</option>
+                                    <option value="Federal Bank">Federal Bank</option>
+                                    <option value="IDFC FIRST Bank">IDFC FIRST Bank</option>
+                                    <option value="Yes Bank">Yes Bank</option>
+                                    <option value="Central Bank of India">Central Bank of India</option>
+                                    <option value="Indian Overseas Bank">Indian Overseas Bank</option>
+                                </select>
+                            </div>
+
+                            
+                            <div class="p-3 bg-white rounded-3 border d-flex justify-content-between align-items-center flex-wrap gap-2 small">
+                                <div>
+                                    <span class="text-muted d-block">Selected Gateway:</span>
+                                    <strong class="text-success fs-6" id="selectedBankDisplay">HDFC Bank Internet Banking</strong>
+                                </div>
+                                <div class="d-flex gap-3">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="accTypeRadio" id="accRetail" value="Retail" checked>
+                                        <label class="form-check-label" for="accRetail">Retail Banking</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="accTypeRadio" id="accCorporate" value="Corporate">
+                                        <label class="form-check-label" for="accCorporate">Corporate</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        
+                        <div id="walletFieldsWrapper" class="payment-fields-panel p-4 rounded-4 bg-light border mb-4" style="display: none;">
+                            <div class="d-flex align-items-center justify-content-between mb-3 flex-wrap gap-2">
+                                <h6 class="fw-bold text-dark mb-0">
+                                    <i class="bi bi-wallet2 me-2 text-success"></i> Nomadic Travel Valet & VIP Wallet
+                                </h6>
+                                <span class="badge bg-warning text-dark border rounded-pill px-3 py-1 small fw-bold">
+                                    <i class="bi bi-gem me-1"></i> Diamond Elite Tier
+                                </span>
+                            </div>
+
+                            
+                            <div class="travel-valet-card rounded-4 p-4 text-white position-relative shadow mb-3 overflow-hidden"
+                                 style="background: linear-gradient(135deg, #073b2d 0%, #155e46 60%, #3e7d35 100%);">
+                                <div class="d-flex justify-content-between align-items-start mb-3">
+                                    <div>
+                                        <small class="text-white-50 text-uppercase tracking-wider" style="font-size: 10px; letter-spacing: 1px;">Personalized Concierge</small>
+                                        <h5 class="fw-bold mb-0 text-white" style="font-family: 'Playfair Display', serif;">Nomadic Travel Valet Pass</h5>
+                                    </div>
+                                    <i class="bi bi-shield-check display-6 text-warning"></i>
+                                </div>
+
+                                <div class="my-3">
+                                    <small class="text-white-50 d-block mb-1" style="font-size: 11px;">VALET MEMBER ACCOUNT</small>
+                                    <div class="fs-5 font-monospace text-warning letter-spacing-1">VALET-NOM-8849-2026</div>
+                                </div>
+
+                                <div class="d-flex justify-content-between align-items-end pt-2 border-top border-white border-opacity-25 flex-wrap gap-2">
+                                    <div>
+                                        <small class="text-white-50 d-block" style="font-size: 10px;">AVAILABLE VALET CREDITS</small>
+                                        <strong class="fs-3 text-white">₹1,50,000.00</strong>
+                                    </div>
+                                    <div class="text-end">
+                                        <span class="badge bg-success bg-opacity-75 rounded-pill px-3 py-2 small">
+                                            <i class="bi bi-check-circle-fill me-1"></i> 100% Sufficient Balance
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            
+                            <div class="p-3 bg-white rounded-3 border small mb-3">
+                                <div class="d-flex justify-content-between text-muted mb-2">
+                                    <span>Opening Valet Balance:</span>
+                                    <strong class="text-dark">₹1,50,000</strong>
+                                </div>
+                                <div class="d-flex justify-content-between text-danger mb-2">
+                                    <span>Package Total to Deduct:</span>
+                                    <strong id="valetDeductAmount">- ₹@Model.TotalAmount.ToString("N0")</strong>
+                                </div>
+                                <hr class="my-2" />
+                                <div class="d-flex justify-content-between text-success fw-bold fs-6">
+                                    <span>Remaining Balance After Booking:</span>
+                                    <span id="valetRemainingBalance">₹@((150000m - Model.TotalAmount).ToString("N0"))</span>
+                                </div>
+                            </div>
+
+                            
+                            <div class="form-check p-3 rounded-3 bg-success-subtle border border-success-subtle mb-0">
+                                <input class="form-check-input ms-0 me-2" type="checkbox" checked id="useValetCheckbox" disabled />
+                                <label class="form-check-label fw-bold text-success" for="useValetCheckbox">
+                                    <i class="bi bi-check-all me-1"></i> Instant 1-Click Valet Authorization Active (Zero Convenience Fees)
+                                </label>
+                                <small class="text-muted d-block mt-1">Includes complimentary airport meet & greet and 24/7 dedicated Nomadic trip valet concierge.</small>
+                            </div>
+                        </div>
+
+                        
+                        <button type="submit" id="confirmPaymentButton" class="btn btn-success btn-lg w-100 rounded-pill py-3 fw-bold shadow-sm">
+                            <i class="bi bi-lock-fill me-2" id="submitBtnIcon"></i>
+                            <span id="submitBtnText">Confirm Payment</span> (<span id="btnAmountDisplay">₹@Model.TotalAmount.ToString("N0")</span>)
+                        </button>
+
+                        <div class="text-center mt-3 small text-muted">
+                            <i class="bi bi-shield-check text-success me-1"></i>
+                            <span id="securityText">Encrypted 256-bit Demo SSL Checkout • Instant Booking Summary Generated</span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            
+            <div class="col-lg-5">
+                <div class="card border-0 shadow-sm rounded-4 sticky-top p-4 bg-white" style="top: 90px;">
+                    <h5 class="fw-bold text-dark mb-3" style="font-family: 'Playfair Display', serif;">
+                        Selected Package Summary
+                    </h5>
+
+                    
+                    <div class="d-flex gap-3 mb-4 pb-3 border-bottom">
+                        <img src="@Model.ImageUrl"
+                             alt="@Model.PackageName"
+                             class="rounded-3 object-fit-cover"
+                             style="width: 100px; height: 90px;" />
+                        <div>
+                            <span class="badge bg-success-subtle text-success rounded-pill px-2 py-1 small mb-1">
+                                <i class="bi bi-geo-alt-fill me-1"></i> @Model.Destination
+                            </span>
+                            <h6 class="fw-bold text-dark mb-1">@Model.PackageName</h6>
+                            <small class="text-muted d-block"><i class="bi bi-clock me-1"></i> @Model.Duration</small>
+                        </div>
+                    </div>
+
+                    
+                    <div class="small mb-4 d-flex flex-column gap-2">
+                        <div class="d-flex justify-content-between text-muted">
+                            <span>Package Rate (Per Person):</span>
+                            <span class="fw-medium text-dark">₹@Model.PackagePrice.ToString("N0")</span>
+                        </div>
+                        <div class="d-flex justify-content-between text-muted">
+                            <span>Number of Travelers:</span>
+                            <span class="fw-bold text-dark" id="displayTravelersCount">@Model.TravelersCount</span>
+                        </div>
+                        <div class="d-flex justify-content-between text-muted">
+                            <span>Subtotal Amount:</span>
+                            <span class="fw-medium text-dark" id="displaySubtotal">₹@Model.Subtotal.ToString("N0")</span>
+                        </div>
+                        <div class="d-flex justify-content-between text-muted">
+                            <span>GST & Travel Tourism Tax (5%):</span>
+                            <span class="fw-medium text-dark" id="displayTaxes">₹@Model.TaxesAndFees.ToString("N0")</span>
+                        </div>
+
+                        <hr class="my-2" />
+
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <strong class="fs-6 text-dark d-block">Total Amount:</strong>
+                                <small class="text-muted" style="font-size: 11px;">(All Taxes & Fees Included)</small>
+                            </div>
+                            <strong class="text-success fs-3" id="displayTotalAmount">
+                                ₹@Model.TotalAmount.ToString("N0")
+                            </strong>
+                        </div>
+                    </div>
+
+                    
+                    <div class="p-3 mb-3 rounded-3 border bg-light-subtle d-flex align-items-center justify-content-between">
+                        <div>
+                            <small class="text-muted d-block" style="font-size: 10px; text-transform: uppercase; font-weight: 600;">Payment Mode</small>
+                            <span class="fw-bold text-dark small" id="selectedMethodBadge">Credit / Debit Card</span>
+                        </div>
+                        <span class="badge bg-success rounded-pill px-2 py-1 small">
+                            <i class="bi bi-check2"></i> Ready
+                        </span>
+                    </div>
+
+                    
+                    <div class="p-3 rounded-3 bg-light small text-muted d-flex flex-column gap-2 border">
+                        <div class="d-flex align-items-center">
+                            <i class="bi bi-check-circle-fill text-success me-2"></i>
+                            <span>Instant Booking Reference ID on Confirmation</span>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <i class="bi bi-check-circle-fill text-success me-2"></i>
+                            <span>Complete Day-Wise Itinerary & Hotel Vouchers</span>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <i class="bi bi-check-circle-fill text-success me-2"></i>
+                            <span>24/7 dedicated Nomadic travel concierge support</span>
+                        </div>
+                    </div>
+
+                    <div class="text-center mt-3">
+                        <a asp-controller="Packages" asp-action="Details" asp-route-id="@Model.PackageId" class="text-success small text-decoration-none">
+                            ← Review package details & itinerary
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .payment-method-card {
+        cursor: pointer;
+        transition: all 0.25s ease;
+        border-radius: 14px;
+        background: #fdfdfd;
+        border: 2px solid #e5e9e4 !important;
+    }
+    .payment-method-card.active {
+        border-color: var(--green) !important;
+        background: rgba(62, 125, 53, 0.08) !important;
+        box-shadow: 0 4px 14px rgba(62, 125, 53, 0.16);
+    }
+    .payment-method-card:hover {
+        border-color: var(--green) !important;
+        transform: translateY(-2px);
+    }
+    .bank-pill-card {
+        transition: all 0.2s ease;
+        border: 2px solid #e9ecef !important;
+    }
+    .bank-pill-card.active {
+        border-color: var(--green) !important;
+        background: rgba(62, 125, 53, 0.08) !important;
+        box-shadow: 0 3px 10px rgba(62, 125, 53, 0.15);
+    }
+    .bank-pill-card:hover {
+        border-color: var(--green) !important;
+        transform: translateY(-1px);
+    }
+    .upi-app-btn.active {
+        background-color: var(--green);
+        color: white !important;
+        border-color: var(--green);
+    }
+    .upi-app-btn.active i {
+        color: white !important;
+    }
+    .blink-dot {
+        animation: blink 1.2s infinite ease-in-out;
+    }
+    @@keyframes blink {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.3; }
+    }
+</style>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        $(document).ready(function () {
+            const basePrice = parseFloat($('#basePackagePrice').val()) || 0;
+            const walletTotalBalance = 150000;
+
+            function formatINR(number) {
+                return '₹' + Math.round(number).toLocaleString('en-IN');
+            }
+
+            function recalculateBill() {
+                const travelers = parseInt($('#travelersCountSelect').val()) || 1;
+                const subtotal = basePrice * travelers;
+                const taxes = Math.round(subtotal * 0.05);
+                const total = subtotal + taxes;
+
+                
+                $('#displayTravelersCount').text(travelers);
+                $('#displaySubtotal').text(formatINR(subtotal));
+                $('#displayTaxes').text(formatINR(taxes));
+                $('#displayTotalAmount').text(formatINR(total));
+
+                
+                $('#qrAmountBadge').text(formatINR(total));
+
+                
+                $('#valetDeductAmount').text('- ' + formatINR(total));
+                const remainingValet = Math.max(0, walletTotalBalance - total);
+                $('#valetRemainingBalance').text(formatINR(remainingValet));
+
+                
+                $('#btnAmountDisplay').text(formatINR(total));
+            }
+
+            
+            $('#travelersCountSelect').on('change', recalculateBill);
+
+            
+            $('.payment-method-card input[type="radio"]').on('change', function () {
+                $('.payment-method-card').removeClass('active');
+                $(this).closest('.payment-method-card').addClass('active');
+
+                const method = $(this).val();
+                $('.payment-fields-panel').hide();
+
+                if (method === 'Credit / Debit Card') {
+                    $('#cardFieldsWrapper').slideDown(200);
+                    $('#submitBtnIcon').attr('class', 'bi bi-credit-card me-2');
+                    $('#submitBtnText').text('Confirm Card Payment');
+                    $('#selectedMethodBadge').text('Credit / Debit Card');
+                    $('#securityText').text('Encrypted 256-bit Demo SSL Checkout • Instant Booking Summary Generated');
+                } else if (method === 'UPI / QR Code') {
+                    $('#upiFieldsWrapper').slideDown(200);
+                    $('#submitBtnIcon').attr('class', 'bi bi-qr-code-scan me-2');
+                    const selectedApp = $('#selectedUpiApp').val() || 'UPI';
+                    $('#submitBtnText').text('Confirm with ' + selectedApp);
+                    $('#selectedMethodBadge').text('UPI / Instant QR (' + selectedApp + ')');
+                    $('#securityText').text('Instant UPI Demo Gateway • Verified by NPCI Sandbox');
+                } else if (method === 'Net Banking') {
+                    $('#netBankingFieldsWrapper').slideDown(200);
+                    $('#submitBtnIcon').attr('class', 'bi bi-bank me-2');
+                    const selectedBank = $('#selectedBankInput').val() || 'HDFC Bank';
+                    $('#submitBtnText').text('Proceed with ' + selectedBank);
+                    $('#selectedMethodBadge').text('Net Banking (' + selectedBank + ')');
+                    $('#securityText').text('Direct Net Banking Gateway • Bank-grade 256-bit Encryption');
+                } else if (method.indexOf('Wallet') >= 0 || method.indexOf('Valet') >= 0) {
+                    $('#walletFieldsWrapper').slideDown(200);
+                    $('#submitBtnIcon').attr('class', 'bi bi-wallet2 me-2');
+                    $('#submitBtnText').text('1-Click Pay with Travel Valet');
+                    $('#selectedMethodBadge').text('Nomadic Travel Valet & Wallet');
+                    $('#securityText').text('Nomadic VIP Concierge Pass • Instant Confirmation & 0% Fees');
+                }
+            });
+
+            
+            $('.upi-app-btn').on('click', function () {
+                $('.upi-app-btn').removeClass('active');
+                $(this).addClass('active');
+                const app = $(this).data('app');
+                $('#selectedUpiApp').val(app);
+                $('#submitBtnText').text('Confirm with ' + app);
+                $('#selectedMethodBadge').text('UPI / Instant QR (' + app + ')');
+            });
+
+            
+            $('#copyUpiBtn').on('click', function () {
+                const upiText = $('#merchantUpiId').val();
+                navigator.clipboard.writeText(upiText).then(function () {
+                    $('#copySuccessMsg').fadeIn().delay(2000).fadeOut();
+                }).catch(function () {
+                    $('#merchantUpiId').select();
+                    document.execCommand('copy');
+                    $('#copySuccessMsg').fadeIn().delay(2000).fadeOut();
+                });
+            });
+
+            
+            $('.bank-pill-card').on('click', function () {
+                $('.bank-pill-card').removeClass('active');
+                $(this).addClass('active');
+                const bank = $(this).data('bank');
+                $('#selectedBankInput').val(bank);
+                $('#allBanksDropdown').val(bank);
+                $('#selectedBankDisplay').text(bank + ' Internet Banking');
+                $('#submitBtnText').text('Proceed with ' + bank);
+                $('#selectedMethodBadge').text('Net Banking (' + bank + ')');
+            });
+
+            
+            $('#allBanksDropdown').on('change', function () {
+                const bank = $(this).val();
+                $('#selectedBankInput').val(bank);
+                $('.bank-pill-card').removeClass('active');
+                $('.bank-pill-card[data-bank="' + bank + '"]').addClass('active');
+                $('#selectedBankDisplay').text(bank + ' Internet Banking');
+                $('#submitBtnText').text('Proceed with ' + bank);
+                $('#selectedMethodBadge').text('Net Banking (' + bank + ')');
+            });
+
+            
+            $('input[name="accTypeRadio"]').on('change', function () {
+                $('#selectedAccountType').val($(this).val());
+            });
+
+            
+            recalculateBill();
+        });
+    </script>
+}

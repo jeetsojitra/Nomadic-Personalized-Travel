@@ -1,0 +1,388 @@
+@{
+    ViewData["Title"] = "Personalized Travel Experiences";
+    var featuredDestinations = (ViewBag.Destinations as IEnumerable<Nomadic.Models.Destination>)?.Take(8).ToList() 
+                               ?? new List<Nomadic.Models.Destination>();
+    var featuredPackages = (ViewBag.Packages as IEnumerable<Nomadic.Models.Package>)?.Take(6).ToList() 
+                           ?? new List<Nomadic.Models.Package>();
+}
+
+
+<section class="hero" id="home">
+    <div class="leaf leaf-1">🌿</div>
+    <div class="leaf leaf-2">🍃</div>
+
+    <div class="container hero-container">
+        <div class="hero-content">
+            <div class="hero-small-title">Your Next Adventure Awaits</div>
+            <h1>Discover Amazing Places <br/> with Personalized Trips</h1>
+            <p>Tell us your preferences and let us create the perfect travel experience just for you.</p>
+        </div>
+
+        
+        <form asp-controller="Search" asp-action="Index" method="get" class="trip-search">
+            
+            <div class="search-field">
+                <i class="bi bi-geo-alt-fill"></i>
+                <div>
+                    <label>Destination</label>
+                    <select name="destination">
+                        <option value="">Where do you want to go?</option>
+                        <option value="Goa">Goa, India</option>
+                        <option value="Kashmir">Kashmir, India</option>
+                        <option value="Kerala">Kerala, India</option>
+                        <option value="Jaipur">Jaipur, India</option>
+                        <option value="Manali">Manali, India</option>
+                        <option value="Ladakh">Ladakh, India</option>
+                        <option value="Andaman Islands">Andaman Islands, India</option>
+                        <option value="Bali">Bali, Indonesia</option>
+                        <option value="Dubai">Dubai, UAE</option>
+                        <option value="Switzerland">Switzerland, Europe</option>
+                        <option value="Santorini">Santorini, Greece</option>
+                        <option value="Paris">Paris, France</option>
+                        <option value="Tokyo">Tokyo, Japan</option>
+                        <option value="Singapore">Singapore</option>
+                        <option value="Thailand">Thailand</option>
+                        <option value="Rome">Rome, Italy</option>
+                        <option value="El Nido">El Nido, Philippines</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="search-divider"></div>
+
+            
+            <div class="search-field">
+                <i class="bi bi-calendar-event"></i>
+                <div>
+                    <label>Travel Dates</label>
+                    <input type="date" name="travelDate" value="@DateTime.Today.AddDays(14).ToString("yyyy-MM-dd")" />
+                </div>
+            </div>
+
+            <div class="search-divider"></div>
+
+            
+            <div class="search-field">
+                <i class="bi bi-currency-rupee"></i>
+                <div>
+                    <label>Budget</label>
+                    <select name="budget">
+                        <option value="">Select budget</option>
+                        <option value="50000">Under ₹50,000</option>
+                        <option value="100000">₹50,000 - ₹1,00,000</option>
+                        <option value="200000">₹1,00,000 - ₹2,00,000</option>
+                        <option value="300000">Above ₹2,00,000</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="search-divider"></div>
+
+            
+            <div class="search-field">
+                <i class="bi bi-people-fill"></i>
+                <div>
+                    <label>Travel Style</label>
+                    <select name="travelStyle">
+                        <option value="">Select style</option>
+                        <option value="Family">Family</option>
+                        <option value="Adventure">Adventure</option>
+                        <option value="Luxury">Luxury</option>
+                        <option value="Couple">Couple</option>
+                        <option value="Solo">Solo</option>
+                    </select>
+                </div>
+            </div>
+
+            
+            <button type="submit" class="find-btn">
+                <i class="bi bi-search"></i>
+                Find Packages
+            </button>
+        </form>
+    </div>
+</section>
+
+
+<section class="features">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 feature-item">
+                <div class="feature-icon"><i class="bi bi-compass"></i></div>
+                <h4>Personalized</h4>
+                <p>Trips based on your interests</p>
+            </div>
+            <div class="col-md-3 feature-item">
+                <div class="feature-icon"><i class="bi bi-shield-check"></i></div>
+                <h4>Safe & Secure</h4>
+                <p>Your safety is our priority.</p>
+            </div>
+            <div class="col-md-3 feature-item">
+                <div class="feature-icon"><i class="bi bi-headset"></i></div>
+                <h4>24/7 Support</h4>
+                <p>We're here for you anytime.</p>
+            </div>
+            <div class="col-md-3 feature-item">
+                <div class="feature-icon"><i class="bi bi-tree"></i></div>
+                <h4>Sustainable Travel</h4>
+                <p>For a better tomorrow</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="destinations-section" id="destinations">
+    <div class="container">
+        <div class="section-heading text-center">
+            <span>✦</span>
+            <h2>Popular Destinations</h2>
+            <span>✦</span>
+            <p>Explore some of the top destinations loved by travelers around the world.</p>
+        </div>
+
+        <div class="row g-4">
+            @foreach (var dest in featuredDestinations)
+            {
+                <div class="col-xl-3 col-lg-4 col-md-6">
+                    <div class="destination-card">
+                        <img src="@dest.ImageUrl" alt="@dest.Name" loading="lazy">
+                        <div class="destination-overlay">
+                            <span class="badge bg-success mb-1" style="font-size: 11px;">From @dest.FormattedPrice</span>
+                            <h3>@dest.Name</h3>
+                            <p><i class="bi bi-geo-alt-fill"></i> @dest.Location</p>
+                            <a asp-controller="Packages" asp-action="Index" asp-route-destination="@dest.Name" class="btn btn-light btn-sm rounded-pill px-3">
+                                View Packages <i class="bi bi-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+
+        <div class="text-center mt-5">
+            <a asp-controller="Destinations" asp-action="Index" class="btn btn-success px-4 py-2 rounded-pill shadow-sm">
+                <i class="bi bi-globe-americas me-2"></i> Explore All 20 Destinations
+            </a>
+        </div>
+    </div>
+</section>
+
+
+<section class="packages-section" id="packages">
+    <div class="container">
+        <div class="section-heading text-center">
+            <span>✦</span>
+            <h2>Featured Travel Packages</h2>
+            <span>✦</span>
+            <p>Handpicked experiences with complete day-wise itineraries for your next journey.</p>
+        </div>
+
+        <div class="row g-4">
+            @foreach (var pkg in featuredPackages)
+            {
+                <div class="col-lg-4 col-md-6">
+                    <div class="package-card h-100 d-flex flex-column shadow-sm">
+                        <div class="position-relative">
+                            <img src="@pkg.ImageUrl" alt="@pkg.Name" style="height: 220px; width: 100%; object-fit: cover;">
+                            <span class="badge bg-dark position-absolute top-0 end-0 m-3 py-2 px-3 rounded-pill bg-opacity-75">
+                                <i class="bi bi-clock me-1"></i> @pkg.Duration
+                            </span>
+                        </div>
+                        <div class="package-content d-flex flex-column flex-grow-1">
+                            <div class="package-location">
+                                <i class="bi bi-geo-alt"></i> @pkg.Destination
+                            </div>
+                            <h3>@pkg.Name</h3>
+                            <p class="flex-grow-1">@pkg.ShortDescription</p>
+
+                            <div class="package-bottom border-top pt-3 mt-auto">
+                                <div>
+                                    <small>Starting from</small>
+                                    <strong>@pkg.FormattedPrice</strong>
+                                </div>
+                                <div class="d-flex gap-2">
+                                    <a asp-controller="Packages" asp-action="Details" asp-route-id="@pkg.Id" class="btn btn-outline-success btn-sm rounded-pill px-3" title="View complete day-wise itinerary">
+                                        Explore <i class="bi bi-arrow-right"></i>
+                                    </a>
+                                    <a asp-controller="Booking" asp-action="Payment" asp-route-packageId="@pkg.Id" class="btn btn-success btn-sm rounded-pill px-3">
+                                        Book Now
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+
+        <div class="text-center mt-5">
+            <a asp-controller="Packages" asp-action="Index" class="btn btn-outline-success px-4 py-2 rounded-pill">
+                View All Travel Packages <i class="bi bi-arrow-right ms-1"></i>
+            </a>
+        </div>
+    </div>
+</section>
+
+
+<style>
+    
+    .memory-collage {
+        position: relative;
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        grid-template-rows: repeat(6, 1fr);
+        gap: 12px;
+        height: 540px;
+    }
+
+    .collage-tile {
+        position: relative;
+        margin: 0;
+        overflow: hidden;
+        border-radius: 18px;
+        box-shadow: 0 10px 28px rgba(0, 0, 0, .14);
+    }
+
+    .collage-tile img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        transition: transform .5s ease;
+    }
+
+    .collage-tile:hover img {
+        transform: scale(1.07);
+    }
+
+    .collage-tile figcaption {
+        position: absolute;
+        left: 10px;
+        bottom: 10px;
+        padding: 4px 12px;
+        font-size: 13px;
+        font-weight: 600;
+        color: #fff;
+        background: rgba(0, 0, 0, .38);
+        backdrop-filter: blur(4px);
+        border-radius: 999px;
+    }
+
+    .tile-bali        { grid-column: 1 / 4; grid-row: 1 / 5; }
+    .tile-santorini   { grid-column: 4 / 7; grid-row: 1 / 3; }
+    .tile-switzerland { grid-column: 4 / 7; grid-row: 3 / 5; }
+    .tile-beach       { grid-column: 1 / 3; grid-row: 5 / 7; }
+    .tile-elnido      { grid-column: 3 / 5; grid-row: 5 / 7; }
+    .tile-dubai       { grid-column: 5 / 7; grid-row: 5 / 7; }
+
+    .collage-note {
+        position: absolute;
+        right: 18px;
+        top: 46%;
+        padding: 14px 20px;
+        font-weight: 700;
+        line-height: 1.35;
+        text-align: center;
+        color: #222;
+        background: #fff;
+        border-radius: 14px;
+        box-shadow: 0 12px 30px rgba(0, 0, 0, .2);
+        transform: rotate(-4deg);
+    }
+</style>
+
+<section class="about-section" id="about">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 mb-5 mb-lg-0">
+                <div class="memory-collage">
+                    <figure class="collage-tile tile-bali">
+                        <img src="~/Images/bali.jpg" alt="Bali">
+                        <figcaption>Bali</figcaption>
+                    </figure>
+
+                    <figure class="collage-tile tile-santorini">
+                        <img src="~/Images/santorini.jpg" alt="Santorini">
+                        <figcaption>Santorini</figcaption>
+                    </figure>
+
+                    <figure class="collage-tile tile-switzerland">
+                        <img src="~/Images/switzerland.jpg" alt="Switzerland">
+                        <figcaption>Switzerland</figcaption>
+                    </figure>
+
+                    <figure class="collage-tile tile-beach">
+                        <img src="~/Images/beach.jpg" alt="Tropical beach">
+                        <figcaption>Beach Escapes</figcaption>
+                    </figure>
+
+                    <figure class="collage-tile tile-elnido">
+                        <img src="~/Images/elnido.jpg" alt="El Nido">
+                        <figcaption>El Nido</figcaption>
+                    </figure>
+
+                    <figure class="collage-tile tile-dubai">
+                        <img src="~/Images/dubai.jpg" alt="Dubai">
+                        <figcaption>Dubai</figcaption>
+                    </figure>
+
+                    <div class="collage-note">
+                        Collect Moments<br />Not Things &#9825;
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="about-content">
+                    <span class="about-small">Travel made personal</span>
+                    <h2>Why Choose <span>Nomadic?</span></h2>
+                    <p>
+                        We make travel simple, personal, and unforgettable. Whether you're looking for adventure in the Himalayas, relaxing on tropical shores, or taking in rich cultural traditions, we create the perfect journey tailored to you.
+                    </p>
+
+                    <div class="about-features">
+                        <div>
+                            <i class="bi bi-tag"></i>
+                            <strong>Best Price</strong>
+                            <span>Guarantee</span>
+                        </div>
+                        <div>
+                            <i class="bi bi-star"></i>
+                            <strong>Curated</strong>
+                            <span>Experiences</span>
+                        </div>
+                        <div>
+                            <i class="bi bi-shield-check"></i>
+                            <strong>Trusted</strong>
+                            <span>Travel Partners</span>
+                        </div>
+                        <div>
+                            <i class="bi bi-globe"></i>
+                            <strong>Global</strong>
+                            <span>Coverage</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="newsletter" id="contact">
+    <div class="container">
+        <div class="newsletter-box">
+            <div>
+                <span>Stay inspired</span>
+                <h2>Get travel inspiration in your inbox</h2>
+                <p>Discover new destinations and exclusive travel offers.</p>
+            </div>
+            <div>
+                <a asp-controller="Subscription" asp-action="Index" class="btn btn-success px-4 py-2 rounded-pill">
+                    <i class="bi bi-envelope me-1"></i> Subscribe Now
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
